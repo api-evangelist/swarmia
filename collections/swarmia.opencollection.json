@@ -1,0 +1,281 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Swarmia API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Built-in reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Code metrics overview.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.swarmia.com/api/v1/reports/metrics/code"
+          },
+          "docs": "Returns pull request metrics per team, including cycle time, review rate, time to first review, merge time, and contributor counts."
+        },
+        {
+          "info": {
+            "name": "DORA metrics overview.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.swarmia.com/api/v1/reports/metrics/dora"
+          },
+          "docs": "Returns DORA metrics for production deployments - deployment frequency, change lead time, release time, change failure rate, and mean time to recovery."
+        },
+        {
+          "info": {
+            "name": "AI assistant adoption overview.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.swarmia.com/api/v1/reports/ai/adoption/users-and-licenses"
+          },
+          "docs": "Returns an overview of AI assistant usage in the organization, including enabled users, active users, and adoption rates by team."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Custom reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Run a saved custom report.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.swarmia.com/api/v1/reports/custom/{id}"
+          },
+          "docs": "Executes a saved custom report by its UUID. Supports pagination, dynamic columns, and timeframe overrides."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Ingestion",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Ingest external AI tool usage.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.swarmia.com/api/v1/ingest/ai-usage",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"records\": [\n    {\n      \"aiService\": \"cursor\",\n      \"email\": \"developer@example.com\",\n      \"date\": \"2026-06-21\",\n      \"activeUsage\": true\n    }\n  ]\n}"
+            }
+          },
+          "docs": "Submits daily usage metrics for external AI tools. Records are upserted by (aiService, email, date). Requires the aiUsage token scope."
+        },
+        {
+          "info": {
+            "name": "Report a deployment or fix deployment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://hook.swarmia.com/deployments",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"version\": \"v2.0.5\",\n  \"appName\": \"frontend\",\n  \"environment\": \"production\",\n  \"deployedAt\": \"2026-06-21T02:22:47Z\",\n  \"commitSha\": \"3fc4a317364fa427cfa8238369eb8535aa1d1670\",\n  \"repositoryFullName\": \"octocat/example\"\n}"
+            }
+          },
+          "docs": "Notifies Swarmia of a deployment. Add fixesVersion to mark a fix deployment that addresses a previously deployed version."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Team management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List organization teams.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.swarmia.com/api/v0/teams"
+          },
+          "docs": "Lists the current teams and their settings."
+        },
+        {
+          "info": {
+            "name": "Replace organization teams.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.swarmia.com/api/v0/teams",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"teams\": [\n    {\n      \"name\": \"Engineering\",\n      \"externalId\": \"engineering\",\n      \"parentExternalId\": null,\n      \"jiraProjectKeys\": null,\n      \"teamAdmins\": null,\n      \"members\": []\n    }\n  ]\n}"
+            }
+          },
+          "docs": "Replaces the organization's teams and memberships. Destructive operation."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Time off",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a time-off period.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.swarmia.com/api/v0/time-offs",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"email\": \"developer@example.com\",\n  \"startDate\": \"2026-12-20\",\n  \"endDate\": \"2026-12-27\",\n  \"externalId\": \"HR-VACATION-12345\"\n}"
+            }
+          },
+          "docs": "Creates a time-off period for an existing team member."
+        },
+        {
+          "info": {
+            "name": "Get a time-off period.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.swarmia.com/api/v0/time-offs/{id}"
+          },
+          "docs": "Retrieves a time-off period by Swarmia UUID or externalId."
+        },
+        {
+          "info": {
+            "name": "Update a time-off period.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.swarmia.com/api/v0/time-offs/{id}",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"email\": \"developer@example.com\",\n  \"startDate\": \"2026-12-20\",\n  \"endDate\": \"2026-12-29\"\n}"
+            }
+          },
+          "docs": "Updates email and dates of a time-off period. externalId is immutable."
+        },
+        {
+          "info": {
+            "name": "Delete a time-off period.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.swarmia.com/api/v0/time-offs/{id}"
+          },
+          "docs": "Deletes a time-off period by Swarmia UUID or externalId."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Export API (v0)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Pull request metrics report.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.swarmia.com/api/v0/reports/pullRequests"
+          },
+          "docs": "Retrieves PR performance data per team as CSV."
+        },
+        {
+          "info": {
+            "name": "DORA metrics report.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.swarmia.com/api/v0/reports/dora"
+          },
+          "docs": "Organization DORA metrics as CSV; supports timeframe, startDate/endDate, timezone, app, environment."
+        },
+        {
+          "info": {
+            "name": "Investment balance report.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.swarmia.com/api/v0/reports/investment"
+          },
+          "docs": "Investment balance by category as CSV; requires startDate and endDate at month boundaries."
+        },
+        {
+          "info": {
+            "name": "Software capitalization report.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.swarmia.com/api/v0/reports/capex"
+          },
+          "docs": "Software capitalization (CapEx) report as CSV; requires monthly-boundary startDate and endDate in the same year."
+        },
+        {
+          "info": {
+            "name": "Software capitalization employees.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.swarmia.com/api/v0/reports/capex/employees"
+          },
+          "docs": "Per-employee monthly FTE for capitalization as CSV; requires the year query parameter."
+        },
+        {
+          "info": {
+            "name": "Effort (FTE) report.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.swarmia.com/api/v0/reports/fte"
+          },
+          "docs": "Effort reporting as CSV; requires month, optional customField and groupBy."
+        }
+      ]
+    }
+  ]
+}

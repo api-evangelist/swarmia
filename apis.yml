@@ -1,0 +1,126 @@
+aid: swarmia
+url: https://raw.githubusercontent.com/api-evangelist/swarmia/refs/heads/main/apis.yml
+name: Swarmia
+kind: company
+description: Swarmia is an engineering-effectiveness analytics platform that combines
+  software delivery metrics (DORA), developer experience, investment balance, and
+  AI adoption insights. Its REST API lets teams export built-in and custom reports,
+  ingest deployment and events data, manage teams and memberships, and record time
+  off, authenticated with Bearer API tokens.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Engineering Effectiveness
+- Developer Productivity
+- DORA
+- Software Delivery
+- Analytics
+created: '2026-06-21'
+modified: '2026-06-21'
+specificationVersion: '0.19'
+apis:
+- aid: swarmia:metrics-export-api
+  name: Swarmia Metrics Export API
+  tags:
+  - Metrics
+  - DORA
+  - Reports
+  - Export
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://help.swarmia.com/settings/integrations/swarmia-apis
+  baseURL: https://app.swarmia.com/api/v1
+  properties:
+  - url: https://help.swarmia.com/settings/integrations/swarmia-apis
+    type: Documentation
+  - url: https://app.swarmia.com/api/v1/openapi.json
+    type: APIReference
+  - url: openapi/swarmia-openapi.yml
+    type: OpenAPI
+  - url: collections/swarmia.postman_collection.json
+    type: PostmanCollection
+  - url: collections/swarmia.opencollection.json
+    type: OpenCollection
+  description: Machine-readable, built-in and custom reports - code metrics, DORA
+    metrics, AI assistant adoption, and saved custom reports - retrieved as JSON or
+    CSV using a Bearer API token with the entityQuery scope.
+- aid: swarmia:deployments-events-ingestion-api
+  name: Swarmia Deployments & Events Ingestion API
+  tags:
+  - Deployments
+  - Events
+  - Ingestion
+  - DORA
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://help.swarmia.com/settings/organization/configuring-deployments-in-swarmia/generate-deployments-via-the-deployment-api
+  baseURL: https://hook.swarmia.com
+  properties:
+  - url: https://help.swarmia.com/settings/organization/configuring-deployments-in-swarmia/generate-deployments-via-the-deployment-api
+    type: Documentation
+  - url: openapi/swarmia-openapi.yml
+    type: OpenAPI
+  - url: collections/swarmia.postman_collection.json
+    type: PostmanCollection
+  - url: collections/swarmia.opencollection.json
+    type: OpenCollection
+  description: Posts deployment and fix-deployment events to Swarmia (POST https://hook.swarmia.com/deployments)
+    so delivery and DORA metrics reflect manual or CI/CD releases, plus daily AI-tool
+    usage ingestion for external assistants.
+- aid: swarmia:investment-categories-api
+  name: Swarmia Investment Categories API
+  tags:
+  - Investment Balance
+  - Capitalization
+  - Effort
+  - Teams
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://help.swarmia.com/settings/integrations/swarmia-apis/export-api
+  baseURL: https://app.swarmia.com/api/v0
+  properties:
+  - url: https://help.swarmia.com/settings/integrations/swarmia-apis/export-api
+    type: Documentation
+  - url: openapi/swarmia-openapi.yml
+    type: OpenAPI
+  - url: collections/swarmia.postman_collection.json
+    type: PostmanCollection
+  - url: collections/swarmia.opencollection.json
+    type: OpenCollection
+  description: Legacy Export API v0 endpoints for investment balance, software capitalization
+    (CapEx), effort (FTE) reporting, and team/member and time-off management, returning
+    CSV for finance and engineering-investment workflows.
+- aid: swarmia:webhooks-api
+  name: Swarmia Webhooks & Notifications API
+  tags:
+  - Webhooks
+  - Notifications
+  - Slack
+  - GitHub
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://help.swarmia.com/resources/security-and-data-retention/data-access
+  baseURL: https://app.swarmia.com/api/v1
+  properties:
+  - url: https://help.swarmia.com/resources/security-and-data-retention/data-access
+    type: Documentation
+  - url: https://help.swarmia.com/getting-started/integrations/slack
+    type: Documentation
+  - url: openapi/swarmia-openapi.yml
+    type: OpenAPI
+  description: Event-driven integration surface - Swarmia subscribes to GitHub webhooks
+    (checks, Actions, deployments, issues, pull requests) and pushes working-agreement
+    nudges, pull-request reminders, and daily digests to Slack and Microsoft Teams.
+common:
+- type: GitHubOrganization
+  url: https://github.com/swarmia
+- type: LinkedIn
+  url: https://www.linkedin.com/company/swarmia
+- type: Website
+  url: https://www.swarmia.com
+- type: Documentation
+  url: https://help.swarmia.com
+- type: Plans
+  url: plans/swarmia-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/swarmia-rate-limits.yml
+- type: FinOps
+  url: finops/swarmia-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,124 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Swarmia
+providerId: swarmia
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: false
+tags:
+- Engineering Effectiveness
+- Developer Productivity
+- DORA
+- Analytics
+- Plans
+description: >-
+  Swarmia is priced per developer per month, where billable seats are the
+  number of unique team members added to teams. A free Startup plan is
+  available for organizations with fewer than 10 developers. Paid Lite and
+  Standard plans add more reports, integrations, and AI insights, and an
+  Enterprise plan adds security, support, and negotiated terms. The API is
+  included with paid plans rather than metered separately. Annual plans are
+  discounted versus monthly.
+notes: >-
+  Representative published list prices; the Swarmia pricing page and sales
+  team have the current rates, module bundles, and volume discounts. Per-seat
+  prices and the exact free-plan developer ceiling should be verified on
+  reconciliation.
+sources:
+- https://www.swarmia.com/pricing/
+- https://help.swarmia.com/resources/pricing-and-plans
+- https://help.swarmia.com/pricing-and-plans/how-do-you-determine-the-number-of-developers-for-billing
+plans:
+- id: swarmia-startup
+  name: Startup
+  type: free
+  description: >-
+    Free plan intended for companies with fewer than 10 software developers,
+    covering core developer-productivity insights.
+  entries:
+  - label: Developers
+    name: developers
+    type: flat
+    metric: developers
+    limit: 9
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: free
+    userMultiplied: true
+  elements:
+  - name: Developer Productivity
+  - name: Pull Request Insights
+  - name: Working Agreements
+- id: swarmia-lite
+  name: Lite
+  type: paid
+  description: >-
+    Per-developer paid plan adding broader software delivery metrics and
+    integrations.
+  entries:
+  - label: Per Developer
+    name: per_developer
+    type: flat
+    metric: developers
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: EUR 20 per developer / month
+    userMultiplied: true
+  elements:
+  - name: Developer Productivity
+  - name: Software Delivery Metrics
+  - name: DORA Metrics
+- id: swarmia-standard
+  name: Standard
+  type: paid
+  description: >-
+    Per-developer paid plan with the full reporting suite, investment balance,
+    capitalization, and AI adoption insights.
+  entries:
+  - label: Per Developer
+    name: per_developer
+    type: flat
+    metric: developers
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: EUR 39 per developer / month
+    userMultiplied: true
+  elements:
+  - name: Developer Productivity
+  - name: Software Delivery Metrics
+  - name: DORA Metrics
+  - name: Investment Balance
+  - name: Software Capitalization
+  - name: AI Adoption Insights
+  - name: API Access
+- id: swarmia-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Volume pricing, advanced security and compliance, SSO/SCIM, dedicated
+    support, and negotiated terms. Contact Swarmia sales.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Custom Volume Pricing
+  - name: SSO and SCIM
+  - name: Advanced Security
+  - name: Dedicated Support
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

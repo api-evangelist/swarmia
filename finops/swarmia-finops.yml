@@ -1,0 +1,87 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Swarmia
+providerId: swarmia
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: false
+tags:
+- Engineering Effectiveness
+- Developer Productivity
+- Analytics
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Swarmia spend. Swarmia bills a per-developer-per-month
+  subscription where billable seats equal the number of unique team members
+  added to teams, rather than metering API calls. Cost is therefore driven by
+  plan tier (Startup free, Lite, Standard, Enterprise) multiplied by seat
+  count, with annual plans discounted versus monthly. The API itself is a
+  plan entitlement, so the primary FinOps levers are seat hygiene and plan
+  selection, not request volume.
+notes: >-
+  Per-seat list prices are subject to change and to volume discounting; verify
+  against the Swarmia pricing page and your order form during reconciliation.
+sources:
+- https://www.swarmia.com/pricing/
+- https://help.swarmia.com/resources/pricing-and-plans
+- https://help.swarmia.com/pricing-and-plans/how-do-you-determine-the-number-of-developers-for-billing
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Swarmia
+serviceCategory: Developer Tools
+billingModel:
+  pricingCategory: Subscription
+  billingFrequency: Monthly or Annual
+  billingCurrency: EUR
+  chargeCategories:
+  - Purchase
+  - Adjustment
+focusColumns:
+  ServiceName: Swarmia
+  ServiceCategory: Developer Tools
+  ProviderName: Swarmia
+  PublisherName: Swarmia
+  InvoiceIssuerName: Swarmia
+  BillingCurrency: EUR
+  ChargeCategory: Purchase
+  PricingCategory: Subscription
+meters:
+- name: billable_seats
+  description: Unique team members added to teams, billed per developer per month by plan tier.
+  unit: developers
+  aggregation: max
+  dimensions:
+  - organization
+  - plan
+- name: plan_tier
+  description: Subscription tier (Startup, Lite, Standard, Enterprise) selected for the organization.
+  unit: plan
+  aggregation: latest
+  dimensions:
+  - organization
+- name: billing_term
+  description: Monthly or annual commitment; annual terms are discounted.
+  unit: term
+  aggregation: latest
+  dimensions:
+  - organization
+principles:
+- name: Visibility
+  description: Use the Team Management API to inventory members per team and reconcile billable seats against the invoice.
+- name: Allocation
+  description: Map teams and parent teams to cost centers; attribute the per-developer subscription to the owning org units.
+- name: Optimization
+  description: Remove inactive members from teams to reduce billable seats; choose the lowest sufficient plan tier; prefer annual terms for the discount.
+- name: Accountability
+  description: Assign an owner for seat hygiene and plan review; reconcile seat counts and tier each renewal cycle.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

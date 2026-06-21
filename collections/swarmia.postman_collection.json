@@ -1,0 +1,391 @@
+{
+  "info": {
+    "name": "Swarmia API",
+    "description": "Swarmia engineering-effectiveness analytics API: built-in and custom reports, deployment and AI-usage ingestion, team management, and time off. Authenticated with a Bearer API token from Settings / API tokens.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://app.swarmia.com/api/v1"
+    },
+    {
+      "key": "baseUrlV0",
+      "value": "https://app.swarmia.com/api/v0"
+    },
+    {
+      "key": "hookUrl",
+      "value": "https://hook.swarmia.com"
+    }
+  ],
+  "item": [
+    {
+      "name": "Built-in reports",
+      "item": [
+        {
+          "name": "Code metrics overview",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reports/metrics/code",
+              "host": ["{{baseUrl}}"],
+              "path": ["reports", "metrics", "code"]
+            },
+            "description": "Returns pull request metrics per team, including cycle time, review rate, time to first review, merge time, and contributor counts."
+          }
+        },
+        {
+          "name": "DORA metrics overview",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reports/metrics/dora",
+              "host": ["{{baseUrl}}"],
+              "path": ["reports", "metrics", "dora"]
+            },
+            "description": "Returns DORA metrics for production deployments - deployment frequency, change lead time, release time, change failure rate, and mean time to recovery."
+          }
+        },
+        {
+          "name": "AI assistant adoption overview",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reports/ai/adoption/users-and-licenses",
+              "host": ["{{baseUrl}}"],
+              "path": ["reports", "ai", "adoption", "users-and-licenses"]
+            },
+            "description": "Returns an overview of AI assistant usage in the organization, including enabled users, active users, and adoption rates by team."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Custom reports",
+      "item": [
+        {
+          "name": "Run a saved custom report",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reports/custom/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["reports", "custom", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "00000000-0000-0000-0000-000000000000"
+                }
+              ]
+            },
+            "description": "Executes a saved custom report by its UUID. Supports pagination, dynamic columns, and timeframe overrides."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Ingestion",
+      "item": [
+        {
+          "name": "Ingest external AI tool usage",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"records\": [\n    {\n      \"aiService\": \"cursor\",\n      \"email\": \"developer@example.com\",\n      \"date\": \"2026-06-21\",\n      \"activeUsage\": true\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/ingest/ai-usage",
+              "host": ["{{baseUrl}}"],
+              "path": ["ingest", "ai-usage"]
+            },
+            "description": "Submits daily usage metrics for external AI tools. Records are upserted by (aiService, email, date). Requires the aiUsage token scope."
+          }
+        },
+        {
+          "name": "Report a deployment or fix deployment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"version\": \"v2.0.5\",\n  \"appName\": \"frontend\",\n  \"environment\": \"production\",\n  \"deployedAt\": \"2026-06-21T02:22:47Z\",\n  \"commitSha\": \"3fc4a317364fa427cfa8238369eb8535aa1d1670\",\n  \"repositoryFullName\": \"octocat/example\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{hookUrl}}/deployments",
+              "host": ["{{hookUrl}}"],
+              "path": ["deployments"]
+            },
+            "description": "Notifies Swarmia of a deployment. Add fixesVersion to mark a fix deployment that addresses a previously deployed version."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Team management",
+      "item": [
+        {
+          "name": "List organization teams",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlV0}}/teams",
+              "host": ["{{baseUrlV0}}"],
+              "path": ["teams"]
+            },
+            "description": "Lists the current teams and their settings."
+          }
+        },
+        {
+          "name": "Replace organization teams",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"teams\": [\n    {\n      \"name\": \"Engineering\",\n      \"externalId\": \"engineering\",\n      \"parentExternalId\": null,\n      \"jiraProjectKeys\": null,\n      \"teamAdmins\": null,\n      \"members\": []\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlV0}}/teams",
+              "host": ["{{baseUrlV0}}"],
+              "path": ["teams"]
+            },
+            "description": "Replaces the organization's teams and memberships. Destructive operation."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Time off",
+      "item": [
+        {
+          "name": "Create a time-off period",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"developer@example.com\",\n  \"startDate\": \"2026-12-20\",\n  \"endDate\": \"2026-12-27\",\n  \"externalId\": \"HR-VACATION-12345\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlV0}}/time-offs",
+              "host": ["{{baseUrlV0}}"],
+              "path": ["time-offs"]
+            },
+            "description": "Creates a time-off period for an existing team member."
+          }
+        },
+        {
+          "name": "Get a time-off period",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlV0}}/time-offs/:id",
+              "host": ["{{baseUrlV0}}"],
+              "path": ["time-offs", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "HR-VACATION-12345"
+                }
+              ]
+            },
+            "description": "Retrieves a time-off period by Swarmia UUID or externalId."
+          }
+        },
+        {
+          "name": "Update a time-off period",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"developer@example.com\",\n  \"startDate\": \"2026-12-20\",\n  \"endDate\": \"2026-12-29\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlV0}}/time-offs/:id",
+              "host": ["{{baseUrlV0}}"],
+              "path": ["time-offs", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "HR-VACATION-12345"
+                }
+              ]
+            },
+            "description": "Updates email and dates of a time-off period. externalId is immutable."
+          }
+        },
+        {
+          "name": "Delete a time-off period",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlV0}}/time-offs/:id",
+              "host": ["{{baseUrlV0}}"],
+              "path": ["time-offs", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "HR-VACATION-12345"
+                }
+              ]
+            },
+            "description": "Deletes a time-off period by Swarmia UUID or externalId."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Export API (v0)",
+      "item": [
+        {
+          "name": "Pull request metrics report",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlV0}}/reports/pullRequests",
+              "host": ["{{baseUrlV0}}"],
+              "path": ["reports", "pullRequests"]
+            },
+            "description": "Retrieves PR performance data per team as CSV."
+          }
+        },
+        {
+          "name": "DORA metrics report",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlV0}}/reports/dora",
+              "host": ["{{baseUrlV0}}"],
+              "path": ["reports", "dora"]
+            },
+            "description": "Organization DORA metrics as CSV; supports timeframe, startDate/endDate, timezone, app, environment."
+          }
+        },
+        {
+          "name": "Investment balance report",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlV0}}/reports/investment",
+              "host": ["{{baseUrlV0}}"],
+              "path": ["reports", "investment"]
+            },
+            "description": "Investment balance by category as CSV; requires startDate and endDate at month boundaries."
+          }
+        },
+        {
+          "name": "Software capitalization report",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlV0}}/reports/capex",
+              "host": ["{{baseUrlV0}}"],
+              "path": ["reports", "capex"]
+            },
+            "description": "Software capitalization (CapEx) report as CSV; requires monthly-boundary startDate and endDate in the same year."
+          }
+        },
+        {
+          "name": "Software capitalization employees",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlV0}}/reports/capex/employees",
+              "host": ["{{baseUrlV0}}"],
+              "path": ["reports", "capex", "employees"]
+            },
+            "description": "Per-employee monthly FTE for capitalization as CSV; requires the year query parameter."
+          }
+        },
+        {
+          "name": "Effort (FTE) report",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlV0}}/reports/fte",
+              "host": ["{{baseUrlV0}}"],
+              "path": ["reports", "fte"]
+            },
+            "description": "Effort reporting as CSV; requires month, optional customField and groupBy."
+          }
+        }
+      ]
+    }
+  ]
+}

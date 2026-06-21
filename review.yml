@@ -1,0 +1,93 @@
+aid: swarmia
+name: Swarmia
+review:
+  question: Does Swarmia expose a documented public WebSocket API?
+  answer: false
+  date: '2026-06-21'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was created. Swarmia's documented integration surface
+    is request/response REST plus an inbound deployment webhook (POST to
+    https://hook.swarmia.com/deployments). Swarmia consumes GitHub webhooks
+    and pushes Slack / Microsoft Teams notifications, but it does not document
+    a public WebSocket, SSE, or message-broker streaming API that an API
+    consumer would subscribe to, so there is no event-driven surface to model
+    in AsyncAPI at this time.
+findings:
+  summary: |
+    Swarmia does not publish a documented public WebSocket API. The Swarmia
+    platform exposes only REST (HTTPS) endpoints: a v1 reports and ingestion
+    API under https://app.swarmia.com/api/v1, a legacy v0 Export and
+    management API under https://app.swarmia.com/api/v0, and a deployment
+    ingestion hook at https://hook.swarmia.com/deployments. All are
+    authenticated with a Bearer API token (GET endpoints also accept a
+    ?token= query parameter). Event-driven behavior is one-directional and
+    handled outside any consumer API: Swarmia subscribes to GitHub webhooks
+    and sends notifications to Slack and Microsoft Teams. No realtime,
+    bidirectional, or streaming WebSocket (ws:// or wss://) endpoint is
+    documented.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://app.swarmia.com/api/v1
+      documented: true
+    - protocol: REST
+      scheme: https
+      baseURL: https://app.swarmia.com/api/v0
+      documented: true
+    - protocol: Webhook
+      scheme: https
+      baseURL: https://hook.swarmia.com
+      note: Inbound deployment event ingestion (POST /deployments). Not a consumer subscription transport.
+      documented: true
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in Swarmia's API reference or help center as of the review date.
+  endpointsConfirmedRest:
+    - GET  https://app.swarmia.com/api/v1/reports/metrics/code
+    - GET  https://app.swarmia.com/api/v1/reports/metrics/dora
+    - GET  https://app.swarmia.com/api/v1/reports/ai/adoption/users-and-licenses
+    - GET  https://app.swarmia.com/api/v1/reports/custom/{id}
+    - POST https://app.swarmia.com/api/v1/ingest/ai-usage
+    - POST https://hook.swarmia.com/deployments
+    - GET  https://app.swarmia.com/api/v0/teams
+    - PUT  https://app.swarmia.com/api/v0/teams
+    - POST https://app.swarmia.com/api/v0/time-offs
+    - GET  https://app.swarmia.com/api/v0/time-offs/{id}
+    - PUT  https://app.swarmia.com/api/v0/time-offs/{id}
+    - DELETE https://app.swarmia.com/api/v0/time-offs/{id}
+    - GET  https://app.swarmia.com/api/v0/reports/pullRequests
+    - GET  https://app.swarmia.com/api/v0/reports/dora
+    - GET  https://app.swarmia.com/api/v0/reports/investment
+    - GET  https://app.swarmia.com/api/v0/reports/capex
+    - GET  https://app.swarmia.com/api/v0/reports/capex/employees
+    - GET  https://app.swarmia.com/api/v0/reports/fte
+sources:
+  - url: https://help.swarmia.com/settings/integrations/swarmia-apis
+    type: Documentation
+    note: API overview lists Built-in reports, Custom reports, Team Management, Time Off, and legacy Export API; all REST.
+  - url: https://app.swarmia.com/api/v1/openapi.json
+    type: APIReference
+    note: OpenAPI document; servers are HTTPS REST under app.swarmia.com/api/v1. No WebSocket.
+  - url: https://help.swarmia.com/settings/integrations/swarmia-apis/export-api
+    type: Documentation
+    note: Legacy Export API v0 returns CSV over HTTPS GET; no streaming transport.
+  - url: https://help.swarmia.com/settings/organization/configuring-deployments-in-swarmia/generate-deployments-via-the-deployment-api
+    type: Documentation
+    note: Deployment ingestion is an HTTPS POST to hook.swarmia.com/deployments; inbound only.
+  - url: https://help.swarmia.com/resources/security-and-data-retention/data-access
+    type: Documentation
+    note: Swarmia subscribes to GitHub webhooks and posts to Slack/Microsoft Teams; no consumer WebSocket API.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists, and no consumer-facing event
+    subscription transport is documented. The catalog therefore models only
+    the documented REST APIs and the inbound deployment ingestion hook; no
+    AsyncAPI document was authored.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
