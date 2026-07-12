@@ -1,0 +1,15 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/swarmia-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerToken
+  type: http
+  scheme: bearer
+  description: Bearer API token provisioned at https://app.swarmia.com/settings/api-tokens.
+    Built-in/custom reports require the entityQuery scope; AI usage ingestion requires the aiUsage
+    scope. GET endpoints also accept the token via a ?token= query parameter.
+  sources:
+  - openapi/swarmia-openapi.yml

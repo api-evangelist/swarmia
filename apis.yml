@@ -107,6 +107,12 @@ apis:
     (checks, Actions, deployments, issues, pull requests) and pushes working-agreement
     nudges, pull-request reminders, and daily digests to Slack and Microsoft Teams.
 common:
+- type: VulnerabilityDisclosure
+  url: security/swarmia-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/swarmia-domain-security.yml
+- type: Authentication
+  url: authentication/swarmia-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/swarmia
 - type: LinkedIn
@@ -121,6 +127,8 @@ common:
   url: rate-limits/swarmia-rate-limits.yml
 - type: FinOps
   url: finops/swarmia-finops.yml
+- url: https://www.swarmia.com/rss.xml
+  type: Blog
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
