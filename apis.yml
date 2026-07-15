@@ -107,6 +107,8 @@ apis:
     (checks, Actions, deployments, issues, pull requests) and pushes working-agreement
     nudges, pull-request reminders, and daily digests to Slack and Microsoft Teams.
 common:
+- type: AgenticAccess
+  url: agentic-access/swarmia-agentic-access.yml
 - type: VulnerabilityDisclosure
   url: security/swarmia-vulnerability-disclosure.yml
 - type: DomainSecurity
