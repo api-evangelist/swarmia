@@ -1,0 +1,124 @@
+openapi: 3.0.1
+info:
+  title: Swarmia Additional AI integrations Team management API
+  description: The Swarmia API provides programmatic access to engineering-effectiveness analytics. It exposes machine-readable built-in reports (code metrics, DORA metrics, AI adoption), custom reports, deployment and AI-usage ingestion, team and membership management, and time-off records. All endpoints are authenticated with a Bearer API token provisioned in the Swarmia application under Settings / API tokens.
+  termsOfService: https://www.swarmia.com/terms-of-service/
+  contact:
+    name: Swarmia Support
+    email: hello@swarmia.com
+    url: https://help.swarmia.com
+  version: v1
+servers:
+- url: https://app.swarmia.com/api/v1
+  description: Built-in and custom reports plus ingestion (v1)
+- url: https://app.swarmia.com/api/v0
+  description: Legacy Export API and management endpoints (v0)
+- url: https://hook.swarmia.com
+  description: Deployment events ingestion hook
+security:
+- bearerToken: []
+tags:
+- name: Team management
+  description: Programmatic management of teams and memberships.
+paths:
+  /teams:
+    servers:
+    - url: https://app.swarmia.com/api/v0
+    get:
+      operationId: listTeams
+      tags:
+      - Team management
+      summary: List organization teams
+      description: Lists the current teams and their settings.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamsResponse'
+    put:
+      operationId: updateTeams
+      tags:
+      - Team management
+      summary: Replace organization teams
+      description: Replaces the organization's teams and memberships. This is a destructive operation - the supplied set of teams becomes the authoritative state.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamsResponse'
+      responses:
+        '200':
+          description: Teams updated.
+        '400':
+          description: Validation error.
+components:
+  schemas:
+    Team:
+      type: object
+      required:
+      - externalId
+      - name
+      - members
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Swarmia internal identifier; include for migrations.
+        externalId:
+          type: string
+          description: Stable caller identifier for matching teams across calls.
+        name:
+          type: string
+        parentExternalId:
+          type: string
+          nullable: true
+          description: externalId of the parent team, if any.
+        jiraProjectKeys:
+          type: array
+          nullable: true
+          items:
+            type: string
+          description: Leaf teams only; omit for parent teams.
+        teamAdmins:
+          type: array
+          nullable: true
+          items:
+            type: string
+            format: email
+          description: Email(s) of team administrators.
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamMember'
+    TeamMember:
+      type: object
+      required:
+      - name
+      - email
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        githubUsername:
+          type: string
+        country:
+          type: string
+    TeamsResponse:
+      type: object
+      required:
+      - teams
+      properties:
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
+  securitySchemes:
+    bearerToken:
+      type: http
+      scheme: bearer
+      description: Bearer API token provisioned at https://app.swarmia.com/settings/api-tokens. Built-in/custom reports require the entityQuery scope; AI usage ingestion requires the aiUsage scope. GET endpoints also accept the token via a ?token= query parameter.

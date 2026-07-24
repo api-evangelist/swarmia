@@ -1,0 +1,77 @@
+openapi: 3.0.1
+info:
+  title: Swarmia Additional AI integrations API
+  description: The Swarmia API provides programmatic access to engineering-effectiveness analytics. It exposes machine-readable built-in reports (code metrics, DORA metrics, AI adoption), custom reports, deployment and AI-usage ingestion, team and membership management, and time-off records. All endpoints are authenticated with a Bearer API token provisioned in the Swarmia application under Settings / API tokens.
+  termsOfService: https://www.swarmia.com/terms-of-service/
+  contact:
+    name: Swarmia Support
+    email: hello@swarmia.com
+    url: https://help.swarmia.com
+  version: v1
+servers:
+- url: https://app.swarmia.com/api/v1
+  description: Built-in and custom reports plus ingestion (v1)
+- url: https://app.swarmia.com/api/v0
+  description: Legacy Export API and management endpoints (v0)
+- url: https://hook.swarmia.com
+  description: Deployment events ingestion hook
+security:
+- bearerToken: []
+tags:
+- name: Additional AI integrations
+  description: Ingestion of usage data from external AI assistant tools.
+paths:
+  /ingest/ai-usage:
+    post:
+      operationId: postUsage
+      tags:
+      - Additional AI integrations
+      summary: Ingest external AI tool usage
+      description: Submits daily usage metrics for external AI tools. Records are upserted by the tuple (aiService, email, date). Requires a token with the aiUsage scope.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AiUsageIngestRequest'
+      responses:
+        '200':
+          description: Usage records accepted and upserted.
+components:
+  schemas:
+    AiUsageIngestRequest:
+      type: object
+      required:
+      - records
+      properties:
+        records:
+          type: array
+          items:
+            type: object
+            required:
+            - aiService
+            - email
+            - date
+            properties:
+              aiService:
+                type: string
+                description: Identifier of the external AI tool (e.g. cursor, copilot).
+              email:
+                type: string
+                format: email
+                description: Email of the developer the usage is attributed to.
+              date:
+                type: string
+                format: date
+                description: Usage date in YYYY-MM-DD.
+              activeUsage:
+                type: boolean
+                description: Whether the developer actively used the tool that day.
+              metadata:
+                type: object
+                additionalProperties: true
+  securitySchemes:
+    bearerToken:
+      type: http
+      scheme: bearer
+      description: Bearer API token provisioned at https://app.swarmia.com/settings/api-tokens. Built-in/custom reports require the entityQuery scope; AI usage ingestion requires the aiUsage scope. GET endpoints also accept the token via a ?token= query parameter.

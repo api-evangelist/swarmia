@@ -1,0 +1,106 @@
+openapi: 3.0.1
+info:
+  title: Swarmia Additional AI integrations Custom reports API
+  description: The Swarmia API provides programmatic access to engineering-effectiveness analytics. It exposes machine-readable built-in reports (code metrics, DORA metrics, AI adoption), custom reports, deployment and AI-usage ingestion, team and membership management, and time-off records. All endpoints are authenticated with a Bearer API token provisioned in the Swarmia application under Settings / API tokens.
+  termsOfService: https://www.swarmia.com/terms-of-service/
+  contact:
+    name: Swarmia Support
+    email: hello@swarmia.com
+    url: https://help.swarmia.com
+  version: v1
+servers:
+- url: https://app.swarmia.com/api/v1
+  description: Built-in and custom reports plus ingestion (v1)
+- url: https://app.swarmia.com/api/v0
+  description: Legacy Export API and management endpoints (v0)
+- url: https://hook.swarmia.com
+  description: Deployment events ingestion hook
+security:
+- bearerToken: []
+tags:
+- name: Custom reports
+  description: Saved custom reports created in the Swarmia explore view.
+paths:
+  /reports/custom/{id}:
+    get:
+      operationId: getReportsCustomById
+      tags:
+      - Custom reports
+      summary: Run a saved custom report
+      description: Executes a saved custom report (created at app.swarmia.com/explore) by its UUID. Supports pagination, dynamic columns, and timeframe overrides.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: UUID of the saved custom report.
+        schema:
+          type: string
+          format: uuid
+      - $ref: '#/components/parameters/Timeframe'
+      - $ref: '#/components/parameters/StartDate'
+      - $ref: '#/components/parameters/EndDate'
+      - name: cursor
+        in: query
+        description: Pagination cursor returned by a previous response.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportResponse'
+components:
+  parameters:
+    StartDate:
+      name: startDate
+      in: query
+      description: Start date in YYYY-MM-DD.
+      schema:
+        type: string
+        format: date
+    EndDate:
+      name: endDate
+      in: query
+      description: End date in YYYY-MM-DD.
+      schema:
+        type: string
+        format: date
+    Timeframe:
+      name: timeframe
+      in: query
+      description: Relative timeframe (e.g. last7days). Defaults to the last 7 days (UTC).
+      schema:
+        type: string
+  schemas:
+    ReportResponse:
+      type: object
+      description: Machine-readable report with column definitions and row data.
+      properties:
+        revision:
+          type: integer
+        columns:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              name:
+                type: string
+              type:
+                type: string
+        rows:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        nextCursor:
+          type: string
+          nullable: true
+  securitySchemes:
+    bearerToken:
+      type: http
+      scheme: bearer
+      description: Bearer API token provisioned at https://app.swarmia.com/settings/api-tokens. Built-in/custom reports require the entityQuery scope; AI usage ingestion requires the aiUsage scope. GET endpoints also accept the token via a ?token= query parameter.

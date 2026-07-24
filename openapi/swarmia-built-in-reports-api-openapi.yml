@@ -1,0 +1,157 @@
+openapi: 3.0.1
+info:
+  title: Swarmia Additional AI integrations Built-in reports API
+  description: The Swarmia API provides programmatic access to engineering-effectiveness analytics. It exposes machine-readable built-in reports (code metrics, DORA metrics, AI adoption), custom reports, deployment and AI-usage ingestion, team and membership management, and time-off records. All endpoints are authenticated with a Bearer API token provisioned in the Swarmia application under Settings / API tokens.
+  termsOfService: https://www.swarmia.com/terms-of-service/
+  contact:
+    name: Swarmia Support
+    email: hello@swarmia.com
+    url: https://help.swarmia.com
+  version: v1
+servers:
+- url: https://app.swarmia.com/api/v1
+  description: Built-in and custom reports plus ingestion (v1)
+- url: https://app.swarmia.com/api/v0
+  description: Legacy Export API and management endpoints (v0)
+- url: https://hook.swarmia.com
+  description: Deployment events ingestion hook
+security:
+- bearerToken: []
+tags:
+- name: Built-in reports
+  description: Machine-readable versions of major reports found in the Swarmia app.
+paths:
+  /reports/metrics/code:
+    get:
+      operationId: getReportsMetricsCode
+      tags:
+      - Built-in reports
+      summary: Code metrics overview
+      description: Returns pull request metrics per team, including cycle time, review rate, time to first review, merge time, and contributor counts. Supports revisions 1-2.
+      parameters:
+      - $ref: '#/components/parameters/Revision'
+      - $ref: '#/components/parameters/Timeframe'
+      - $ref: '#/components/parameters/StartDate'
+      - $ref: '#/components/parameters/EndDate'
+      - $ref: '#/components/parameters/Timezone'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportResponse'
+  /reports/metrics/dora:
+    get:
+      operationId: getReportsMetricsDora
+      tags:
+      - Built-in reports
+      summary: DORA metrics overview
+      description: Returns DORA metrics for production deployments - deployment frequency, change lead time, release (time to deploy), change failure rate, and mean time to recovery. Supports revisions 1-2.
+      parameters:
+      - $ref: '#/components/parameters/Revision'
+      - $ref: '#/components/parameters/Timeframe'
+      - $ref: '#/components/parameters/StartDate'
+      - $ref: '#/components/parameters/EndDate'
+      - name: app
+        in: query
+        description: Filter by deployment application name(s).
+        schema:
+          type: string
+      - name: environment
+        in: query
+        description: Filter by deployment environment.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportResponse'
+  /reports/ai/adoption/users-and-licenses:
+    get:
+      operationId: getReportsAiAdoptionUsersAndLicenses
+      tags:
+      - Built-in reports
+      summary: AI assistant adoption overview
+      description: Returns an overview of AI assistant usage in the organization, including enabled users, active users, and adoption rates by team. Supports revision 1 only.
+      parameters:
+      - $ref: '#/components/parameters/Timeframe'
+      - $ref: '#/components/parameters/StartDate'
+      - $ref: '#/components/parameters/EndDate'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportResponse'
+components:
+  parameters:
+    Revision:
+      name: revision
+      in: query
+      description: Report schema revision to return.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 2
+    EndDate:
+      name: endDate
+      in: query
+      description: End date in YYYY-MM-DD.
+      schema:
+        type: string
+        format: date
+    Timezone:
+      name: timezone
+      in: query
+      description: tz database identifier used for date bucketing (e.g. Europe/Helsinki).
+      schema:
+        type: string
+    Timeframe:
+      name: timeframe
+      in: query
+      description: Relative timeframe (e.g. last7days). Defaults to the last 7 days (UTC).
+      schema:
+        type: string
+    StartDate:
+      name: startDate
+      in: query
+      description: Start date in YYYY-MM-DD.
+      schema:
+        type: string
+        format: date
+  schemas:
+    ReportResponse:
+      type: object
+      description: Machine-readable report with column definitions and row data.
+      properties:
+        revision:
+          type: integer
+        columns:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              name:
+                type: string
+              type:
+                type: string
+        rows:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        nextCursor:
+          type: string
+          nullable: true
+  securitySchemes:
+    bearerToken:
+      type: http
+      scheme: bearer
+      description: Bearer API token provisioned at https://app.swarmia.com/settings/api-tokens. Built-in/custom reports require the entityQuery scope; AI usage ingestion requires the aiUsage scope. GET endpoints also accept the token via a ?token= query parameter.

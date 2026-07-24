@@ -1,0 +1,90 @@
+openapi: 3.0.1
+info:
+  title: Swarmia Additional AI integrations Deployments API
+  description: The Swarmia API provides programmatic access to engineering-effectiveness analytics. It exposes machine-readable built-in reports (code metrics, DORA metrics, AI adoption), custom reports, deployment and AI-usage ingestion, team and membership management, and time-off records. All endpoints are authenticated with a Bearer API token provisioned in the Swarmia application under Settings / API tokens.
+  termsOfService: https://www.swarmia.com/terms-of-service/
+  contact:
+    name: Swarmia Support
+    email: hello@swarmia.com
+    url: https://help.swarmia.com
+  version: v1
+servers:
+- url: https://app.swarmia.com/api/v1
+  description: Built-in and custom reports plus ingestion (v1)
+- url: https://app.swarmia.com/api/v0
+  description: Legacy Export API and management endpoints (v0)
+- url: https://hook.swarmia.com
+  description: Deployment events ingestion hook
+security:
+- bearerToken: []
+tags:
+- name: Deployments
+  description: Deployment and fix-deployment event ingestion for delivery and DORA metrics.
+paths:
+  /deployments:
+    servers:
+    - url: https://hook.swarmia.com
+    post:
+      operationId: createDeployment
+      tags:
+      - Deployments
+      summary: Report a deployment or fix deployment
+      description: Notifies Swarmia of a successful deployment, or - when fixesVersion is present - a fix deployment that addresses a previously deployed version. Used to populate software delivery and DORA metrics.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Deployment'
+      responses:
+        '200':
+          description: Deployment recorded.
+components:
+  schemas:
+    Deployment:
+      type: object
+      required:
+      - version
+      - appName
+      properties:
+        version:
+          type: string
+          description: Version identifier (e.g. v2.0.5 or a commit hash).
+        appName:
+          type: string
+          description: Application or system identifier.
+        environment:
+          type: string
+          description: Environment name. Defaults to "default".
+        deployedAt:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp. Defaults to the time of the request.
+        commitSha:
+          type: string
+          description: Full commit SHA used to link included pull requests.
+        repositoryFullName:
+          type: string
+          description: org/repo. Required when commitSha is provided.
+        fixesVersion:
+          type: string
+          description: When present, marks this deployment as fixing the named version.
+        description:
+          type: string
+          maxLength: 2048
+          description: Free-form deployment tooltip text.
+        includedCommitShas:
+          type: array
+          items:
+            type: string
+          description: Manually specify the commits included in the deployment.
+        filePathFilters:
+          type: array
+          items:
+            type: string
+          description: Filter included pull requests by changed file paths.
+  securitySchemes:
+    bearerToken:
+      type: http
+      scheme: bearer
+      description: Bearer API token provisioned at https://app.swarmia.com/settings/api-tokens. Built-in/custom reports require the entityQuery scope; AI usage ingestion requires the aiUsage scope. GET endpoints also accept the token via a ?token= query parameter.
