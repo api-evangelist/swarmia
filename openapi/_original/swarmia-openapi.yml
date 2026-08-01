@@ -1,0 +1,522 @@
+openapi: 3.0.1
+info:
+  title: Swarmia API
+  description: >-
+    The Swarmia API provides programmatic access to engineering-effectiveness
+    analytics. It exposes machine-readable built-in reports (code metrics, DORA
+    metrics, AI adoption), custom reports, deployment and AI-usage ingestion,
+    team and membership management, and time-off records. All endpoints are
+    authenticated with a Bearer API token provisioned in the Swarmia
+    application under Settings / API tokens.
+  termsOfService: https://www.swarmia.com/terms-of-service/
+  contact:
+    name: Swarmia Support
+    email: hello@swarmia.com
+    url: https://help.swarmia.com
+  version: v1
+servers:
+  - url: https://app.swarmia.com/api/v1
+    description: Built-in and custom reports plus ingestion (v1)
+  - url: https://app.swarmia.com/api/v0
+    description: Legacy Export API and management endpoints (v0)
+  - url: https://hook.swarmia.com
+    description: Deployment events ingestion hook
+security:
+  - bearerToken: []
+tags:
+  - name: Built-in reports
+    description: Machine-readable versions of major reports found in the Swarmia app.
+  - name: Custom reports
+    description: Saved custom reports created in the Swarmia explore view.
+  - name: Additional AI integrations
+    description: Ingestion of usage data from external AI assistant tools.
+  - name: Deployments
+    description: Deployment and fix-deployment event ingestion for delivery and DORA metrics.
+  - name: Export API (v0)
+    description: Legacy CSV report endpoints, including investment balance and capitalization.
+  - name: Team management
+    description: Programmatic management of teams and memberships.
+  - name: Time off
+    description: Create, read, update, and delete employee time-off periods.
+paths:
+  /reports/metrics/code:
+    get:
+      operationId: getReportsMetricsCode
+      tags:
+        - Built-in reports
+      summary: Code metrics overview
+      description: >-
+        Returns pull request metrics per team, including cycle time, review
+        rate, time to first review, merge time, and contributor counts.
+        Supports revisions 1-2.
+      parameters:
+        - $ref: '#/components/parameters/Revision'
+        - $ref: '#/components/parameters/Timeframe'
+        - $ref: '#/components/parameters/StartDate'
+        - $ref: '#/components/parameters/EndDate'
+        - $ref: '#/components/parameters/Timezone'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportResponse'
+  /reports/metrics/dora:
+    get:
+      operationId: getReportsMetricsDora
+      tags:
+        - Built-in reports
+      summary: DORA metrics overview
+      description: >-
+        Returns DORA metrics for production deployments - deployment frequency,
+        change lead time, release (time to deploy), change failure rate, and
+        mean time to recovery. Supports revisions 1-2.
+      parameters:
+        - $ref: '#/components/parameters/Revision'
+        - $ref: '#/components/parameters/Timeframe'
+        - $ref: '#/components/parameters/StartDate'
+        - $ref: '#/components/parameters/EndDate'
+        - name: app
+          in: query
+          description: Filter by deployment application name(s).
+          schema:
+            type: string
+        - name: environment
+          in: query
+          description: Filter by deployment environment.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportResponse'
+  /reports/ai/adoption/users-and-licenses:
+    get:
+      operationId: getReportsAiAdoptionUsersAndLicenses
+      tags:
+        - Built-in reports
+      summary: AI assistant adoption overview
+      description: >-
+        Returns an overview of AI assistant usage in the organization,
+        including enabled users, active users, and adoption rates by team.
+        Supports revision 1 only.
+      parameters:
+        - $ref: '#/components/parameters/Timeframe'
+        - $ref: '#/components/parameters/StartDate'
+        - $ref: '#/components/parameters/EndDate'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportResponse'
+  /reports/custom/{id}:
+    get:
+      operationId: getReportsCustomById
+      tags:
+        - Custom reports
+      summary: Run a saved custom report
+      description: >-
+        Executes a saved custom report (created at app.swarmia.com/explore) by
+        its UUID. Supports pagination, dynamic columns, and timeframe overrides.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: UUID of the saved custom report.
+          schema:
+            type: string
+            format: uuid
+        - $ref: '#/components/parameters/Timeframe'
+        - $ref: '#/components/parameters/StartDate'
+        - $ref: '#/components/parameters/EndDate'
+        - name: cursor
+          in: query
+          description: Pagination cursor returned by a previous response.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportResponse'
+  /ingest/ai-usage:
+    post:
+      operationId: postUsage
+      tags:
+        - Additional AI integrations
+      summary: Ingest external AI tool usage
+      description: >-
+        Submits daily usage metrics for external AI tools. Records are upserted
+        by the tuple (aiService, email, date). Requires a token with the
+        aiUsage scope.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AiUsageIngestRequest'
+      responses:
+        '200':
+          description: Usage records accepted and upserted.
+  /deployments:
+    servers:
+      - url: https://hook.swarmia.com
+    post:
+      operationId: createDeployment
+      tags:
+        - Deployments
+      summary: Report a deployment or fix deployment
+      description: >-
+        Notifies Swarmia of a successful deployment, or - when fixesVersion is
+        present - a fix deployment that addresses a previously deployed
+        version. Used to populate software delivery and DORA metrics.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Deployment'
+      responses:
+        '200':
+          description: Deployment recorded.
+  /teams:
+    servers:
+      - url: https://app.swarmia.com/api/v0
+    get:
+      operationId: listTeams
+      tags:
+        - Team management
+      summary: List organization teams
+      description: Lists the current teams and their settings.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamsResponse'
+    put:
+      operationId: updateTeams
+      tags:
+        - Team management
+      summary: Replace organization teams
+      description: >-
+        Replaces the organization's teams and memberships. This is a
+        destructive operation - the supplied set of teams becomes the
+        authoritative state.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamsResponse'
+      responses:
+        '200':
+          description: Teams updated.
+        '400':
+          description: Validation error.
+  /time-offs:
+    servers:
+      - url: https://app.swarmia.com/api/v0
+    post:
+      operationId: createTimeOff
+      tags:
+        - Time off
+      summary: Create a time-off period
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimeOff'
+      responses:
+        '200':
+          description: Time-off period created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeOff'
+  /time-offs/{id}:
+    servers:
+      - url: https://app.swarmia.com/api/v0
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: Swarmia UUID or the caller-supplied externalId.
+        schema:
+          type: string
+    get:
+      operationId: getTimeOff
+      tags:
+        - Time off
+      summary: Get a time-off period
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeOff'
+    put:
+      operationId: updateTimeOff
+      tags:
+        - Time off
+      summary: Update a time-off period
+      description: Updates email and dates. externalId is immutable.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimeOff'
+      responses:
+        '200':
+          description: Time-off period updated.
+    delete:
+      operationId: deleteTimeOff
+      tags:
+        - Time off
+      summary: Delete a time-off period
+      responses:
+        '200':
+          description: Time-off period deleted.
+components:
+  securitySchemes:
+    bearerToken:
+      type: http
+      scheme: bearer
+      description: >-
+        Bearer API token provisioned at
+        https://app.swarmia.com/settings/api-tokens. Built-in/custom reports
+        require the entityQuery scope; AI usage ingestion requires the aiUsage
+        scope. GET endpoints also accept the token via a ?token= query
+        parameter.
+  parameters:
+    Revision:
+      name: revision
+      in: query
+      description: Report schema revision to return.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 2
+    Timeframe:
+      name: timeframe
+      in: query
+      description: Relative timeframe (e.g. last7days). Defaults to the last 7 days (UTC).
+      schema:
+        type: string
+    StartDate:
+      name: startDate
+      in: query
+      description: Start date in YYYY-MM-DD.
+      schema:
+        type: string
+        format: date
+    EndDate:
+      name: endDate
+      in: query
+      description: End date in YYYY-MM-DD.
+      schema:
+        type: string
+        format: date
+    Timezone:
+      name: timezone
+      in: query
+      description: tz database identifier used for date bucketing (e.g. Europe/Helsinki).
+      schema:
+        type: string
+  schemas:
+    ReportResponse:
+      type: object
+      description: Machine-readable report with column definitions and row data.
+      properties:
+        revision:
+          type: integer
+        columns:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              name:
+                type: string
+              type:
+                type: string
+        rows:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        nextCursor:
+          type: string
+          nullable: true
+    AiUsageIngestRequest:
+      type: object
+      required:
+        - records
+      properties:
+        records:
+          type: array
+          items:
+            type: object
+            required:
+              - aiService
+              - email
+              - date
+            properties:
+              aiService:
+                type: string
+                description: Identifier of the external AI tool (e.g. cursor, copilot).
+              email:
+                type: string
+                format: email
+                description: Email of the developer the usage is attributed to.
+              date:
+                type: string
+                format: date
+                description: Usage date in YYYY-MM-DD.
+              activeUsage:
+                type: boolean
+                description: Whether the developer actively used the tool that day.
+              metadata:
+                type: object
+                additionalProperties: true
+    Deployment:
+      type: object
+      required:
+        - version
+        - appName
+      properties:
+        version:
+          type: string
+          description: Version identifier (e.g. v2.0.5 or a commit hash).
+        appName:
+          type: string
+          description: Application or system identifier.
+        environment:
+          type: string
+          description: Environment name. Defaults to "default".
+        deployedAt:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp. Defaults to the time of the request.
+        commitSha:
+          type: string
+          description: Full commit SHA used to link included pull requests.
+        repositoryFullName:
+          type: string
+          description: org/repo. Required when commitSha is provided.
+        fixesVersion:
+          type: string
+          description: When present, marks this deployment as fixing the named version.
+        description:
+          type: string
+          maxLength: 2048
+          description: Free-form deployment tooltip text.
+        includedCommitShas:
+          type: array
+          items:
+            type: string
+          description: Manually specify the commits included in the deployment.
+        filePathFilters:
+          type: array
+          items:
+            type: string
+          description: Filter included pull requests by changed file paths.
+    TeamsResponse:
+      type: object
+      required:
+        - teams
+      properties:
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
+    Team:
+      type: object
+      required:
+        - externalId
+        - name
+        - members
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Swarmia internal identifier; include for migrations.
+        externalId:
+          type: string
+          description: Stable caller identifier for matching teams across calls.
+        name:
+          type: string
+        parentExternalId:
+          type: string
+          nullable: true
+          description: externalId of the parent team, if any.
+        jiraProjectKeys:
+          type: array
+          nullable: true
+          items:
+            type: string
+          description: Leaf teams only; omit for parent teams.
+        teamAdmins:
+          type: array
+          nullable: true
+          items:
+            type: string
+            format: email
+          description: Email(s) of team administrators.
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamMember'
+    TeamMember:
+      type: object
+      required:
+        - name
+        - email
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        githubUsername:
+          type: string
+        country:
+          type: string
+    TimeOff:
+      type: object
+      required:
+        - email
+        - startDate
+        - endDate
+      properties:
+        email:
+          type: string
+          format: email
+          description: Must match an existing team member.
+        startDate:
+          type: string
+          format: date
+          description: yyyy-MM-dd.
+        endDate:
+          type: string
+          format: date
+          description: yyyy-MM-dd; must be greater than or equal to startDate.
+        externalId:
+          type: string
+          maxLength: 128
+          description: >-
+            Optional caller identifier. Max 128 chars, no whitespace, slashes,
+            or quotes, and unique. Immutable after creation.

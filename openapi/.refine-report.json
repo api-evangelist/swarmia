@@ -1,0 +1,24 @@
+{
+  "provider": "swarmia",
+  "sources": [
+    "swarmia-additional-ai-integrations-api-openapi.yml",
+    "swarmia-built-in-reports-api-openapi.yml",
+    "swarmia-custom-reports-api-openapi.yml",
+    "swarmia-deployments-api-openapi.yml",
+    "swarmia-team-management-api-openapi.yml",
+    "swarmia-time-off-api-openapi.yml"
+  ],
+  "outputs": [
+    "swarmia-additional-ai-integrations-api-openapi.yml",
+    "swarmia-built-in-reports-api-openapi.yml",
+    "swarmia-custom-reports-api-openapi.yml",
+    "swarmia-deployments-api-openapi.yml",
+    "swarmia-team-management-api-openapi.yml",
+    "swarmia-time-off-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
