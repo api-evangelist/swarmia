@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Swarmia Additional AI integrations Deployments API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Deployments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Report a deployment or fix deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.swarmia.com/api/v1/deployments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Notifies Swarmia of a successful deployment, or - when fixesVersion is present - a fix deployment that addresses a previously deployed version. Used to populate software delivery and DORA metrics."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

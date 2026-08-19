@@ -1,0 +1,100 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Swarmia Additional AI integrations Time off API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Time off",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a time-off period",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.swarmia.com/api/v1/time-offs",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a time-off period"
+        },
+        {
+          "info": {
+            "name": "Get a time-off period",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.swarmia.com/api/v1/time-offs/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Swarmia UUID or the caller-supplied externalId."
+              }
+            ]
+          },
+          "docs": "Get a time-off period"
+        },
+        {
+          "info": {
+            "name": "Update a time-off period",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.swarmia.com/api/v1/time-offs/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Swarmia UUID or the caller-supplied externalId."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates email and dates. externalId is immutable."
+        },
+        {
+          "info": {
+            "name": "Delete a time-off period",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.swarmia.com/api/v1/time-offs/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Swarmia UUID or the caller-supplied externalId."
+              }
+            ]
+          },
+          "docs": "Delete a time-off period"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

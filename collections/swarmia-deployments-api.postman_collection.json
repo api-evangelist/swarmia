@@ -1,0 +1,137 @@
+{
+  "item": [
+    {
+      "id": "f03c11ab-bdcd-4e49-a4fb-ea0788368138",
+      "name": "Deployments",
+      "description": {
+        "content": "Deployment and fix-deployment event ingestion for delivery and DORA metrics.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "91760b63-8dcb-4e59-8394-170ecdc9ce28",
+          "name": "Report a deployment or fix deployment",
+          "request": {
+            "name": "Report a deployment or fix deployment",
+            "description": {
+              "content": "Notifies Swarmia of a successful deployment, or - when fixesVersion is present - a fix deployment that addresses a previously deployed version. Used to populate software delivery and DORA metrics.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "deployments"
+              ],
+              "host": [
+                "{{deployments-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"version\": \"<string>\",\n  \"appName\": \"<string>\",\n  \"environment\": \"<string>\",\n  \"deployedAt\": \"<dateTime>\",\n  \"commitSha\": \"<string>\",\n  \"repositoryFullName\": \"<string>\",\n  \"fixesVersion\": \"<string>\",\n  \"description\": \"<string>\",\n  \"includedCommitShas\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filePathFilters\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "09630900-974b-43f3-867c-ff8df4e4edf6",
+              "name": "Deployment recorded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "deployments"
+                  ],
+                  "host": [
+                    "{{deployments-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": \"<string>\",\n  \"appName\": \"<string>\",\n  \"environment\": \"<string>\",\n  \"deployedAt\": \"<dateTime>\",\n  \"commitSha\": \"<string>\",\n  \"repositoryFullName\": \"<string>\",\n  \"fixesVersion\": \"<string>\",\n  \"description\": \"<string>\",\n  \"includedCommitShas\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filePathFilters\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.swarmia.com/api/v1",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://hook.swarmia.com",
+      "key": "deployments-Url"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3dac2b14-fda9-4d4c-b606-3c3148bccf40",
+    "name": "Swarmia Additional AI integrations Deployments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Swarmia API provides programmatic access to engineering-effectiveness analytics. It exposes machine-readable built-in reports (code metrics, DORA metrics, AI adoption), custom reports, deployment and AI-usage ingestion, team and membership management, and time-off records. All endpoints are authenticated with a Bearer API token provisioned in the Swarmia application under Settings / API tokens.\n\nContact Support:\n Name: Swarmia Support\n Email: hello@swarmia.com",
+      "type": "text/plain"
+    }
+  }
+}

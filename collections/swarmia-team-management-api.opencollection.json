@@ -1,0 +1,50 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Swarmia Additional AI integrations Team management API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Team management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List organization teams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.swarmia.com/api/v1/teams"
+          },
+          "docs": "Lists the current teams and their settings."
+        },
+        {
+          "info": {
+            "name": "Replace organization teams",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.swarmia.com/api/v1/teams",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces the organization's teams and memberships. This is a destructive operation - the supplied set of teams becomes the authoritative state."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

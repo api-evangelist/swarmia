@@ -1,0 +1,435 @@
+{
+  "item": [
+    {
+      "id": "c6840c4e-24da-413d-bb81-e5934778f5ff",
+      "name": "Built-in reports",
+      "description": {
+        "content": "Machine-readable versions of major reports found in the Swarmia app.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fbf27c18-e083-4ac9-9dbf-a7da2faf6614",
+          "name": "Code metrics overview",
+          "request": {
+            "name": "Code metrics overview",
+            "description": {
+              "content": "Returns pull request metrics per team, including cycle time, review rate, time to first review, merge time, and contributor counts. Supports revisions 1-2.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports",
+                "metrics",
+                "code"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "revision",
+                  "value": "<integer>",
+                  "description": "Report schema revision to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeframe",
+                  "value": "<string>",
+                  "description": "Relative timeframe (e.g. last7days). Defaults to the last 7 days (UTC)."
+                },
+                {
+                  "disabled": false,
+                  "key": "startDate",
+                  "value": "<date>",
+                  "description": "Start date in YYYY-MM-DD."
+                },
+                {
+                  "disabled": false,
+                  "key": "endDate",
+                  "value": "<date>",
+                  "description": "End date in YYYY-MM-DD."
+                },
+                {
+                  "disabled": false,
+                  "key": "timezone",
+                  "value": "<string>",
+                  "description": "tz database identifier used for date bucketing (e.g. Europe/Helsinki)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "05b548cb-b58d-454b-8358-10c4126f1aef",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "metrics",
+                    "code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "revision",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timeframe",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "timezone",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"revision\": 8909,\n  \"columns\": [\n    {\n      \"key\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"key\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"string\"\n    }\n  ],\n  \"rows\": [\n    {\n      \"key_0\": 2279.5841748755465,\n      \"key_1\": false\n    },\n    {\n      \"key_0\": true,\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    }\n  ],\n  \"nextCursor\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "356e1834-e58b-44a3-82b8-a9f5cad1df02",
+          "name": "DORA metrics overview",
+          "request": {
+            "name": "DORA metrics overview",
+            "description": {
+              "content": "Returns DORA metrics for production deployments - deployment frequency, change lead time, release (time to deploy), change failure rate, and mean time to recovery. Supports revisions 1-2.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports",
+                "metrics",
+                "dora"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "revision",
+                  "value": "<integer>",
+                  "description": "Report schema revision to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeframe",
+                  "value": "<string>",
+                  "description": "Relative timeframe (e.g. last7days). Defaults to the last 7 days (UTC)."
+                },
+                {
+                  "disabled": false,
+                  "key": "startDate",
+                  "value": "<date>",
+                  "description": "Start date in YYYY-MM-DD."
+                },
+                {
+                  "disabled": false,
+                  "key": "endDate",
+                  "value": "<date>",
+                  "description": "End date in YYYY-MM-DD."
+                },
+                {
+                  "disabled": false,
+                  "key": "app",
+                  "value": "<string>",
+                  "description": "Filter by deployment application name(s)."
+                },
+                {
+                  "disabled": false,
+                  "key": "environment",
+                  "value": "<string>",
+                  "description": "Filter by deployment environment."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5d572259-84dc-4f50-8ede-53144657b0e3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "metrics",
+                    "dora"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "revision",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timeframe",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "app",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "environment",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"revision\": 996,\n  \"columns\": [\n    {\n      \"key\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"key\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"string\"\n    }\n  ],\n  \"rows\": [\n    {\n      \"key_0\": 4581\n    },\n    {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    }\n  ],\n  \"nextCursor\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "38dd9ef7-b026-4253-9b49-bcb13feecf01",
+          "name": "AI assistant adoption overview",
+          "request": {
+            "name": "AI assistant adoption overview",
+            "description": {
+              "content": "Returns an overview of AI assistant usage in the organization, including enabled users, active users, and adoption rates by team. Supports revision 1 only.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports",
+                "ai",
+                "adoption",
+                "users-and-licenses"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "timeframe",
+                  "value": "<string>",
+                  "description": "Relative timeframe (e.g. last7days). Defaults to the last 7 days (UTC)."
+                },
+                {
+                  "disabled": false,
+                  "key": "startDate",
+                  "value": "<date>",
+                  "description": "Start date in YYYY-MM-DD."
+                },
+                {
+                  "disabled": false,
+                  "key": "endDate",
+                  "value": "<date>",
+                  "description": "End date in YYYY-MM-DD."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e8a480f0-1406-4fe4-ac88-62e60ae7bd3c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "ai",
+                    "adoption",
+                    "users-and-licenses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "timeframe",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"revision\": 996,\n  \"columns\": [\n    {\n      \"key\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"key\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"string\"\n    }\n  ],\n  \"rows\": [\n    {\n      \"key_0\": 4581\n    },\n    {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    }\n  ],\n  \"nextCursor\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.swarmia.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2565e603-5369-4967-a108-dd6b4e949565",
+    "name": "Swarmia Additional AI integrations Built-in reports API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Swarmia API provides programmatic access to engineering-effectiveness analytics. It exposes machine-readable built-in reports (code metrics, DORA metrics, AI adoption), custom reports, deployment and AI-usage ingestion, team and membership management, and time-off records. All endpoints are authenticated with a Bearer API token provisioned in the Swarmia application under Settings / API tokens.\n\nContact Support:\n Name: Swarmia Support\n Email: hello@swarmia.com",
+      "type": "text/plain"
+    }
+  }
+}

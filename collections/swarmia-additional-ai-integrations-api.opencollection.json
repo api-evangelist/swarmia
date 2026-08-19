@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Swarmia Additional AI integrations API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Additional AI integrations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Ingest external AI tool usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.swarmia.com/api/v1/ingest/ai-usage",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits daily usage metrics for external AI tools. Records are upserted by the tuple (aiService, email, date). Requires a token with the aiUsage scope."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,262 @@
+{
+  "item": [
+    {
+      "id": "527f8722-19be-495a-b647-edf90d9640c4",
+      "name": "Team management",
+      "description": {
+        "content": "Programmatic management of teams and memberships.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "04dd5306-db04-47b7-8f16-6e51215ff3c4",
+          "name": "List organization teams",
+          "request": {
+            "name": "List organization teams",
+            "description": {
+              "content": "Lists the current teams and their settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "teams"
+              ],
+              "host": [
+                "{{teams-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "690508c2-03de-4dc6-8d8d-bce7c36985bd",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "teams"
+                  ],
+                  "host": [
+                    "{{teams-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"teams\": [\n    {\n      \"externalId\": \"string\",\n      \"name\": \"string\",\n      \"members\": [\n        {\n          \"name\": \"string\",\n          \"email\": \"KF26muV7-X0ls@harMVnohjNEfKoqMKZWQmEdXWdDVXRPVv.pob\",\n          \"githubUsername\": \"string\",\n          \"country\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"email\": \"GNRnsDjnx7p@adozmJfDJAVulersbDsysyqMRMtLFPTg.mah\",\n          \"githubUsername\": \"string\",\n          \"country\": \"string\"\n        }\n      ],\n      \"id\": \"eb14d401-969a-d22d-6417-b4d064f5958a\",\n      \"parentExternalId\": \"string\",\n      \"jiraProjectKeys\": [\n        \"string\",\n        \"string\"\n      ],\n      \"teamAdmins\": [\n        \"WQR6OfdQ9RX9@GYTguzavuJhVmCBLkJkk.tswt\",\n        \"FYK1@IewuIQLlRvPuPTNbznoByNFdbuwoQCIn.vbc\"\n      ]\n    },\n    {\n      \"externalId\": \"string\",\n      \"name\": \"string\",\n      \"members\": [\n        {\n          \"name\": \"string\",\n          \"email\": \"z4WmOGR@qebNHSMgIdWIiSYYvVFPnq.nv\",\n          \"githubUsername\": \"string\",\n          \"country\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"email\": \"Abrv2biM6GP24@dlbOaXqHFaLjq.mks\",\n          \"githubUsername\": \"string\",\n          \"country\": \"string\"\n        }\n      ],\n      \"id\": \"8c806ec2-4445-eba1-1783-31f7ac627cd7\",\n      \"parentExternalId\": \"string\",\n      \"jiraProjectKeys\": [\n        \"string\",\n        \"string\"\n      ],\n      \"teamAdmins\": [\n        \"qP1Yx-A@QZHIQdsmncfZZLrvmrWDYjiNzzvDdcoFC.ik\",\n        \"Mfw3gxmimMO6i@uPjdETpmEWlWiTSNEfLPjMX.zv\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "802ba234-9caa-43e2-a6ae-d38969aa0f22",
+          "name": "Replace organization teams",
+          "request": {
+            "name": "Replace organization teams",
+            "description": {
+              "content": "Replaces the organization's teams and memberships. This is a destructive operation - the supplied set of teams becomes the authoritative state.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "teams"
+              ],
+              "host": [
+                "{{teams-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"teams\": [\n    {\n      \"externalId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"members\": [\n        {\n          \"name\": \"<string>\",\n          \"email\": \"<email>\",\n          \"githubUsername\": \"<string>\",\n          \"country\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"email\": \"<email>\",\n          \"githubUsername\": \"<string>\",\n          \"country\": \"<string>\"\n        }\n      ],\n      \"id\": \"<uuid>\",\n      \"parentExternalId\": \"<string>\",\n      \"jiraProjectKeys\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"teamAdmins\": [\n        \"<email>\",\n        \"<email>\"\n      ]\n    },\n    {\n      \"externalId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"members\": [\n        {\n          \"name\": \"<string>\",\n          \"email\": \"<email>\",\n          \"githubUsername\": \"<string>\",\n          \"country\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"email\": \"<email>\",\n          \"githubUsername\": \"<string>\",\n          \"country\": \"<string>\"\n        }\n      ],\n      \"id\": \"<uuid>\",\n      \"parentExternalId\": \"<string>\",\n      \"jiraProjectKeys\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"teamAdmins\": [\n        \"<email>\",\n        \"<email>\"\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "aac1e6b5-1f02-47a7-b4dd-4614ac423791",
+              "name": "Teams updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "teams"
+                  ],
+                  "host": [
+                    "{{teams-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"teams\": [\n    {\n      \"externalId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"members\": [\n        {\n          \"name\": \"<string>\",\n          \"email\": \"<email>\",\n          \"githubUsername\": \"<string>\",\n          \"country\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"email\": \"<email>\",\n          \"githubUsername\": \"<string>\",\n          \"country\": \"<string>\"\n        }\n      ],\n      \"id\": \"<uuid>\",\n      \"parentExternalId\": \"<string>\",\n      \"jiraProjectKeys\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"teamAdmins\": [\n        \"<email>\",\n        \"<email>\"\n      ]\n    },\n    {\n      \"externalId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"members\": [\n        {\n          \"name\": \"<string>\",\n          \"email\": \"<email>\",\n          \"githubUsername\": \"<string>\",\n          \"country\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"email\": \"<email>\",\n          \"githubUsername\": \"<string>\",\n          \"country\": \"<string>\"\n        }\n      ],\n      \"id\": \"<uuid>\",\n      \"parentExternalId\": \"<string>\",\n      \"jiraProjectKeys\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"teamAdmins\": [\n        \"<email>\",\n        \"<email>\"\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cbad1de9-6b85-40bd-a649-2894316fd93c",
+              "name": "Validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "teams"
+                  ],
+                  "host": [
+                    "{{teams-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"teams\": [\n    {\n      \"externalId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"members\": [\n        {\n          \"name\": \"<string>\",\n          \"email\": \"<email>\",\n          \"githubUsername\": \"<string>\",\n          \"country\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"email\": \"<email>\",\n          \"githubUsername\": \"<string>\",\n          \"country\": \"<string>\"\n        }\n      ],\n      \"id\": \"<uuid>\",\n      \"parentExternalId\": \"<string>\",\n      \"jiraProjectKeys\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"teamAdmins\": [\n        \"<email>\",\n        \"<email>\"\n      ]\n    },\n    {\n      \"externalId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"members\": [\n        {\n          \"name\": \"<string>\",\n          \"email\": \"<email>\",\n          \"githubUsername\": \"<string>\",\n          \"country\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"email\": \"<email>\",\n          \"githubUsername\": \"<string>\",\n          \"country\": \"<string>\"\n        }\n      ],\n      \"id\": \"<uuid>\",\n      \"parentExternalId\": \"<string>\",\n      \"jiraProjectKeys\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"teamAdmins\": [\n        \"<email>\",\n        \"<email>\"\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.swarmia.com/api/v1",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://app.swarmia.com/api/v0",
+      "key": "teams-Url"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "34501535-f280-440a-9e83-70064f2c326e",
+    "name": "Swarmia Additional AI integrations Team management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Swarmia API provides programmatic access to engineering-effectiveness analytics. It exposes machine-readable built-in reports (code metrics, DORA metrics, AI adoption), custom reports, deployment and AI-usage ingestion, team and membership management, and time-off records. All endpoints are authenticated with a Bearer API token provisioned in the Swarmia application under Settings / API tokens.\n\nContact Support:\n Name: Swarmia Support\n Email: hello@swarmia.com",
+      "type": "text/plain"
+    }
+  }
+}

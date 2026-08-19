@@ -1,0 +1,147 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Swarmia Additional AI integrations Built-in reports API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Built-in reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Code metrics overview",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.swarmia.com/api/v1/reports/metrics/code",
+            "params": [
+              {
+                "name": "revision",
+                "value": "",
+                "type": "query",
+                "description": "Report schema revision to return."
+              },
+              {
+                "name": "timeframe",
+                "value": "",
+                "type": "query",
+                "description": "Relative timeframe (e.g. last7days). Defaults to the last 7 days (UTC)."
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date in YYYY-MM-DD."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "End date in YYYY-MM-DD."
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query",
+                "description": "tz database identifier used for date bucketing (e.g. Europe/Helsinki)."
+              }
+            ]
+          },
+          "docs": "Returns pull request metrics per team, including cycle time, review rate, time to first review, merge time, and contributor counts. Supports revisions 1-2."
+        },
+        {
+          "info": {
+            "name": "DORA metrics overview",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.swarmia.com/api/v1/reports/metrics/dora",
+            "params": [
+              {
+                "name": "revision",
+                "value": "",
+                "type": "query",
+                "description": "Report schema revision to return."
+              },
+              {
+                "name": "timeframe",
+                "value": "",
+                "type": "query",
+                "description": "Relative timeframe (e.g. last7days). Defaults to the last 7 days (UTC)."
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date in YYYY-MM-DD."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "End date in YYYY-MM-DD."
+              },
+              {
+                "name": "app",
+                "value": "",
+                "type": "query",
+                "description": "Filter by deployment application name(s)."
+              },
+              {
+                "name": "environment",
+                "value": "",
+                "type": "query",
+                "description": "Filter by deployment environment."
+              }
+            ]
+          },
+          "docs": "Returns DORA metrics for production deployments - deployment frequency, change lead time, release (time to deploy), change failure rate, and mean time to recovery. Supports revisions 1-2."
+        },
+        {
+          "info": {
+            "name": "AI assistant adoption overview",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.swarmia.com/api/v1/reports/ai/adoption/users-and-licenses",
+            "params": [
+              {
+                "name": "timeframe",
+                "value": "",
+                "type": "query",
+                "description": "Relative timeframe (e.g. last7days). Defaults to the last 7 days (UTC)."
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date in YYYY-MM-DD."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "End date in YYYY-MM-DD."
+              }
+            ]
+          },
+          "docs": "Returns an overview of AI assistant usage in the organization, including enabled users, active users, and adoption rates by team. Supports revision 1 only."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

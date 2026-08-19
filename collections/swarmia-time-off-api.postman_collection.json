@@ -1,0 +1,432 @@
+{
+  "item": [
+    {
+      "id": "adc7f866-ce07-4216-b288-180c81597484",
+      "name": "Time off",
+      "description": {
+        "content": "Create, read, update, and delete employee time-off periods.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c841425a-81a3-4f8c-9aa5-671ccf625f08",
+          "name": "Create a time-off period",
+          "request": {
+            "name": "Create a time-off period",
+            "description": {},
+            "url": {
+              "path": [
+                "time-offs"
+              ],
+              "host": [
+                "{{time-offs-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<email>\",\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\",\n  \"externalId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "40526e1f-8f68-4c15-9bd0-eb6f4608cc62",
+              "name": "Time-off period created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "time-offs"
+                  ],
+                  "host": [
+                    "{{time-offs-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\",\n  \"externalId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"email\": \"<email>\",\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\",\n  \"externalId\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9e053de3-cde6-4fb6-acf8-3b78e3c6df19",
+          "name": "Get a time-off period",
+          "request": {
+            "name": "Get a time-off period",
+            "description": {},
+            "url": {
+              "path": [
+                "time-offs",
+                ":id"
+              ],
+              "host": [
+                "{{time-offs-id-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Swarmia UUID or the caller-supplied externalId."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d8834a6f-5f3f-4e1a-b990-67c87b479fd2",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "time-offs",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{time-offs-id-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Swarmia UUID or the caller-supplied externalId."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"email\": \"<email>\",\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\",\n  \"externalId\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b311adb1-d758-475d-b1dc-df784da5d2c4",
+          "name": "Update a time-off period",
+          "request": {
+            "name": "Update a time-off period",
+            "description": {
+              "content": "Updates email and dates. externalId is immutable.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "time-offs",
+                ":id"
+              ],
+              "host": [
+                "{{time-offs-id-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Swarmia UUID or the caller-supplied externalId."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<email>\",\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\",\n  \"externalId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2367a4ee-2476-4461-9f3f-16e31884e954",
+              "name": "Time-off period updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "time-offs",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{time-offs-id-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Swarmia UUID or the caller-supplied externalId."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\",\n  \"externalId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0a861dd0-ff3c-449c-bdcf-dd4e361309e9",
+          "name": "Delete a time-off period",
+          "request": {
+            "name": "Delete a time-off period",
+            "description": {},
+            "url": {
+              "path": [
+                "time-offs",
+                ":id"
+              ],
+              "host": [
+                "{{time-offs-id-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Swarmia UUID or the caller-supplied externalId."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7b91a619-6220-402e-86af-72b03de0db79",
+              "name": "Time-off period deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "time-offs",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{time-offs-id-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Swarmia UUID or the caller-supplied externalId."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.swarmia.com/api/v1",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://app.swarmia.com/api/v0",
+      "key": "time-offs-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://app.swarmia.com/api/v0",
+      "key": "time-offs-id-Url"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "862640d2-076b-4ae2-ab3e-f8f1e0e030bc",
+    "name": "Swarmia Additional AI integrations Time off API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Swarmia API provides programmatic access to engineering-effectiveness analytics. It exposes machine-readable built-in reports (code metrics, DORA metrics, AI adoption), custom reports, deployment and AI-usage ingestion, team and membership management, and time-off records. All endpoints are authenticated with a Bearer API token provisioned in the Swarmia application under Settings / API tokens.\n\nContact Support:\n Name: Swarmia Support\n Email: hello@swarmia.com",
+      "type": "text/plain"
+    }
+  }
+}

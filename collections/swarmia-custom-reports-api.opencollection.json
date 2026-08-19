@@ -1,0 +1,67 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Swarmia Additional AI integrations Custom reports API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Custom reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Run a saved custom report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.swarmia.com/api/v1/reports/custom/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the saved custom report."
+              },
+              {
+                "name": "timeframe",
+                "value": "",
+                "type": "query",
+                "description": "Relative timeframe (e.g. last7days). Defaults to the last 7 days (UTC)."
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date in YYYY-MM-DD."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "End date in YYYY-MM-DD."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor returned by a previous response."
+              }
+            ]
+          },
+          "docs": "Executes a saved custom report (created at app.swarmia.com/explore) by its UUID. Supports pagination, dynamic columns, and timeframe overrides."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

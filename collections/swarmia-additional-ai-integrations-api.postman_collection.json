@@ -1,0 +1,134 @@
+{
+  "item": [
+    {
+      "id": "2c98b37e-de2e-4e19-be94-7a686f651b37",
+      "name": "Additional AI integrations",
+      "description": {
+        "content": "Ingestion of usage data from external AI assistant tools.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "559772c5-3fd4-4cfe-82af-b3ae17d7b739",
+          "name": "Ingest external AI tool usage",
+          "request": {
+            "name": "Ingest external AI tool usage",
+            "description": {
+              "content": "Submits daily usage metrics for external AI tools. Records are upserted by the tuple (aiService, email, date). Requires a token with the aiUsage scope.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ingest",
+                "ai-usage"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"records\": [\n    {\n      \"aiService\": \"<string>\",\n      \"email\": \"<email>\",\n      \"date\": \"<date>\",\n      \"activeUsage\": \"<boolean>\",\n      \"metadata\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"aiService\": \"<string>\",\n      \"email\": \"<email>\",\n      \"date\": \"<date>\",\n      \"activeUsage\": \"<boolean>\",\n      \"metadata\": {\n        \"key_0\": false,\n        \"key_1\": false\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1fe30b42-612d-4771-9ec6-555f7da737e9",
+              "name": "Usage records accepted and upserted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ingest",
+                    "ai-usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"records\": [\n    {\n      \"aiService\": \"<string>\",\n      \"email\": \"<email>\",\n      \"date\": \"<date>\",\n      \"activeUsage\": \"<boolean>\",\n      \"metadata\": {\n        \"key_0\": 6901,\n        \"key_1\": false,\n        \"key_2\": \"string\"\n      }\n    },\n    {\n      \"aiService\": \"<string>\",\n      \"email\": \"<email>\",\n      \"date\": \"<date>\",\n      \"activeUsage\": \"<boolean>\",\n      \"metadata\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.swarmia.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6dcad84a-6823-4ea3-8cd1-eee84aff014e",
+    "name": "Swarmia Additional AI integrations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Swarmia API provides programmatic access to engineering-effectiveness analytics. It exposes machine-readable built-in reports (code metrics, DORA metrics, AI adoption), custom reports, deployment and AI-usage ingestion, team and membership management, and time-off records. All endpoints are authenticated with a Bearer API token provisioned in the Swarmia application under Settings / API tokens.\n\nContact Support:\n Name: Swarmia Support\n Email: hello@swarmia.com",
+      "type": "text/plain"
+    }
+  }
+}

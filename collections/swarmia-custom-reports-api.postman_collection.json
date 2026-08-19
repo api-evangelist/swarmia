@@ -1,0 +1,181 @@
+{
+  "item": [
+    {
+      "id": "63f03469-1aac-4a83-90db-e43860259b7f",
+      "name": "Custom reports",
+      "description": {
+        "content": "Saved custom reports created in the Swarmia explore view.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "14ea55df-18dd-4b5b-9117-1c94f05670c1",
+          "name": "Run a saved custom report",
+          "request": {
+            "name": "Run a saved custom report",
+            "description": {
+              "content": "Executes a saved custom report (created at app.swarmia.com/explore) by its UUID. Supports pagination, dynamic columns, and timeframe overrides.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports",
+                "custom",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "timeframe",
+                  "value": "<string>",
+                  "description": "Relative timeframe (e.g. last7days). Defaults to the last 7 days (UTC)."
+                },
+                {
+                  "disabled": false,
+                  "key": "startDate",
+                  "value": "<date>",
+                  "description": "Start date in YYYY-MM-DD."
+                },
+                {
+                  "disabled": false,
+                  "key": "endDate",
+                  "value": "<date>",
+                  "description": "End date in YYYY-MM-DD."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Pagination cursor returned by a previous response."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) UUID of the saved custom report."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2a50333b-2025-4e49-8f27-7cb27e7c2b6e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "custom",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "timeframe",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) UUID of the saved custom report."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"revision\": 7215,\n  \"columns\": [\n    {\n      \"key\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"key\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"string\"\n    }\n  ],\n  \"rows\": [\n    {\n      \"key_0\": 9135,\n      \"key_1\": 8608.454982539959,\n      \"key_2\": 1469\n    },\n    {\n      \"key_0\": false,\n      \"key_1\": \"string\",\n      \"key_2\": 2333.783527671198\n    }\n  ],\n  \"nextCursor\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.swarmia.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d32684cb-ace0-4734-94b1-9040143e2895",
+    "name": "Swarmia Additional AI integrations Custom reports API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Swarmia API provides programmatic access to engineering-effectiveness analytics. It exposes machine-readable built-in reports (code metrics, DORA metrics, AI adoption), custom reports, deployment and AI-usage ingestion, team and membership management, and time-off records. All endpoints are authenticated with a Bearer API token provisioned in the Swarmia application under Settings / API tokens.\n\nContact Support:\n Name: Swarmia Support\n Email: hello@swarmia.com",
+      "type": "text/plain"
+    }
+  }
+}
