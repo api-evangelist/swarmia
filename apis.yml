@@ -91,6 +91,8 @@ apis:
   humanURL: https://help.swarmia.com/settings/integrations/swarmia-apis
   baseURL: https://app.swarmia.com/api/v1
   tags:
+  - Custom Reports
+  tags_raw:
   - Custom reports
   properties:
   - type: OpenAPI
@@ -118,6 +120,8 @@ apis:
   humanURL: https://help.swarmia.com/settings/integrations/swarmia-apis
   baseURL: https://app.swarmia.com/api/v1
   tags:
+  - Deployment
+  tags_raw:
   - Deployments
   properties:
   - type: OpenAPI
@@ -145,6 +149,8 @@ apis:
   humanURL: https://help.swarmia.com/settings/integrations/swarmia-apis
   baseURL: https://app.swarmia.com/api/v1
   tags:
+  - Team Management
+  tags_raw:
   - Team management
   properties:
   - type: OpenAPI
@@ -172,6 +178,8 @@ apis:
   humanURL: https://help.swarmia.com/settings/integrations/swarmia-apis
   baseURL: https://app.swarmia.com/api/v1
   tags:
+  - Time Off
+  tags_raw:
   - Time off
   properties:
   - type: OpenAPI
