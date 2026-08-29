@@ -7,6 +7,18 @@ description: Swarmia is an engineering-effectiveness analytics platform that com
   AI adoption insights. Its REST API lets teams export built-in and custom reports,
   ingest deployment and events data, manage teams and memberships, and record time
   off, authenticated with Bearer API tokens.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
