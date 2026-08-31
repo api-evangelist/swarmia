@@ -103,7 +103,7 @@ apis:
   humanURL: https://help.swarmia.com/settings/integrations/swarmia-apis
   baseURL: https://app.swarmia.com/api/v1
   tags:
-  - Custom Reports
+  - Custom reports
   tags_raw:
   - Custom reports
   properties:
@@ -161,7 +161,7 @@ apis:
   humanURL: https://help.swarmia.com/settings/integrations/swarmia-apis
   baseURL: https://app.swarmia.com/api/v1
   tags:
-  - Team Management
+  - Team management
   tags_raw:
   - Team management
   properties:
@@ -190,7 +190,7 @@ apis:
   humanURL: https://help.swarmia.com/settings/integrations/swarmia-apis
   baseURL: https://app.swarmia.com/api/v1
   tags:
-  - Time Off
+  - Time off
   tags_raw:
   - Time off
   properties:
