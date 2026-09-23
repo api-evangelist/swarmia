@@ -1,12 +1,7 @@
 {
   "provider": "swarmia",
   "sources": [
-    "swarmia-additional-ai-integrations-api-openapi.yml",
-    "swarmia-built-in-reports-api-openapi.yml",
-    "swarmia-custom-reports-api-openapi.yml",
-    "swarmia-deployments-api-openapi.yml",
-    "swarmia-team-management-api-openapi.yml",
-    "swarmia-time-off-api-openapi.yml"
+    "_original/swarmia-openapi.yml"
   ],
   "outputs": [
     "swarmia-additional-ai-integrations-api-openapi.yml",
@@ -19,6 +14,17 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "swarmia-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "swarmia-additional-ai-integrations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "swarmia-built-in-reports-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "swarmia-custom-reports-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "swarmia-deployments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "swarmia-team-management-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "swarmia-time-off-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

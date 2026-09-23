@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Swarmia Additional AI integrations Custom reports API
+  title: Swarmia Custom reports API
   description: The Swarmia API provides programmatic access to engineering-effectiveness analytics. It exposes machine-readable built-in reports (code metrics, DORA metrics, AI adoption), custom reports, deployment and AI-usage ingestion, team and membership management, and time-off records. All endpoints are authenticated with a Bearer API token provisioned in the Swarmia application under Settings / API tokens.
   termsOfService: https://www.swarmia.com/terms-of-service/
   contact:
@@ -18,14 +18,14 @@ servers:
 security:
 - bearerToken: []
 tags:
-- name: Custom reports
+- name: Custom Reports
   description: Saved custom reports created in the Swarmia explore view.
 paths:
   /reports/custom/{id}:
     get:
       operationId: getReportsCustomById
       tags:
-      - Custom reports
+      - Custom Reports
       summary: Run a saved custom report
       description: Executes a saved custom report (created at app.swarmia.com/explore) by its UUID. Supports pagination, dynamic columns, and timeframe overrides.
       parameters:
@@ -60,6 +60,12 @@ components:
       schema:
         type: string
         format: date
+    Timeframe:
+      name: timeframe
+      in: query
+      description: Relative timeframe (e.g. last7days). Defaults to the last 7 days (UTC).
+      schema:
+        type: string
     EndDate:
       name: endDate
       in: query
@@ -67,12 +73,6 @@ components:
       schema:
         type: string
         format: date
-    Timeframe:
-      name: timeframe
-      in: query
-      description: Relative timeframe (e.g. last7days). Defaults to the last 7 days (UTC).
-      schema:
-        type: string
   schemas:
     ReportResponse:
       type: object
@@ -97,8 +97,9 @@ components:
             type: object
             additionalProperties: true
         nextCursor:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
   securitySchemes:
     bearerToken:
       type: http

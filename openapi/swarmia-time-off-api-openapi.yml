@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Swarmia Additional AI integrations Time off API
+  title: Swarmia Time off API
   description: The Swarmia API provides programmatic access to engineering-effectiveness analytics. It exposes machine-readable built-in reports (code metrics, DORA metrics, AI adoption), custom reports, deployment and AI-usage ingestion, team and membership management, and time-off records. All endpoints are authenticated with a Bearer API token provisioned in the Swarmia application under Settings / API tokens.
   termsOfService: https://www.swarmia.com/terms-of-service/
   contact:
@@ -18,7 +18,7 @@ servers:
 security:
 - bearerToken: []
 tags:
-- name: Time off
+- name: Time Off
   description: Create, read, update, and delete employee time-off periods.
 paths:
   /time-offs:
@@ -27,7 +27,7 @@ paths:
     post:
       operationId: createTimeOff
       tags:
-      - Time off
+      - Time Off
       summary: Create a time-off period
       requestBody:
         required: true
@@ -55,7 +55,7 @@ paths:
     get:
       operationId: getTimeOff
       tags:
-      - Time off
+      - Time Off
       summary: Get a time-off period
       responses:
         '200':
@@ -67,7 +67,7 @@ paths:
     put:
       operationId: updateTimeOff
       tags:
-      - Time off
+      - Time Off
       summary: Update a time-off period
       description: Updates email and dates. externalId is immutable.
       requestBody:
@@ -82,7 +82,7 @@ paths:
     delete:
       operationId: deleteTimeOff
       tags:
-      - Time off
+      - Time Off
       summary: Delete a time-off period
       responses:
         '200':

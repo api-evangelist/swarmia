@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Swarmia Additional AI integrations Team management API
+  title: Swarmia Team management API
   description: The Swarmia API provides programmatic access to engineering-effectiveness analytics. It exposes machine-readable built-in reports (code metrics, DORA metrics, AI adoption), custom reports, deployment and AI-usage ingestion, team and membership management, and time-off records. All endpoints are authenticated with a Bearer API token provisioned in the Swarmia application under Settings / API tokens.
   termsOfService: https://www.swarmia.com/terms-of-service/
   contact:
@@ -18,7 +18,7 @@ servers:
 security:
 - bearerToken: []
 tags:
-- name: Team management
+- name: Team Management
   description: Programmatic management of teams and memberships.
 paths:
   /teams:
@@ -27,7 +27,7 @@ paths:
     get:
       operationId: listTeams
       tags:
-      - Team management
+      - Team Management
       summary: List organization teams
       description: Lists the current teams and their settings.
       responses:
@@ -40,7 +40,7 @@ paths:
     put:
       operationId: updateTeams
       tags:
-      - Team management
+      - Team Management
       summary: Replace organization teams
       description: Replaces the organization's teams and memberships. This is a destructive operation - the supplied set of teams becomes the authoritative state.
       requestBody:
@@ -56,43 +56,6 @@ paths:
           description: Validation error.
 components:
   schemas:
-    Team:
-      type: object
-      required:
-      - externalId
-      - name
-      - members
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Swarmia internal identifier; include for migrations.
-        externalId:
-          type: string
-          description: Stable caller identifier for matching teams across calls.
-        name:
-          type: string
-        parentExternalId:
-          type: string
-          nullable: true
-          description: externalId of the parent team, if any.
-        jiraProjectKeys:
-          type: array
-          nullable: true
-          items:
-            type: string
-          description: Leaf teams only; omit for parent teams.
-        teamAdmins:
-          type: array
-          nullable: true
-          items:
-            type: string
-            format: email
-          description: Email(s) of team administrators.
-        members:
-          type: array
-          items:
-            $ref: '#/components/schemas/TeamMember'
     TeamMember:
       type: object
       required:
@@ -117,6 +80,46 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Team'
+    Team:
+      type: object
+      required:
+      - externalId
+      - name
+      - members
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Swarmia internal identifier; include for migrations.
+        externalId:
+          type: string
+          description: Stable caller identifier for matching teams across calls.
+        name:
+          type: string
+        parentExternalId:
+          type:
+          - string
+          - 'null'
+          description: externalId of the parent team, if any.
+        jiraProjectKeys:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Leaf teams only; omit for parent teams.
+        teamAdmins:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            format: email
+          description: Email(s) of team administrators.
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamMember'
   securitySchemes:
     bearerToken:
       type: http
