@@ -97,12 +97,6 @@ components:
       schema:
         type: string
         format: date
-    Timeframe:
-      name: timeframe
-      in: query
-      description: Relative timeframe (e.g. last7days). Defaults to the last 7 days (UTC).
-      schema:
-        type: string
     Revision:
       name: revision
       in: query
@@ -111,6 +105,18 @@ components:
         type: integer
         minimum: 1
         maximum: 2
+    Timeframe:
+      name: timeframe
+      in: query
+      description: Relative timeframe (e.g. last7days). Defaults to the last 7 days (UTC).
+      schema:
+        type: string
+    Timezone:
+      name: timezone
+      in: query
+      description: tz database identifier used for date bucketing (e.g. Europe/Helsinki).
+      schema:
+        type: string
     EndDate:
       name: endDate
       in: query
@@ -118,12 +124,6 @@ components:
       schema:
         type: string
         format: date
-    Timezone:
-      name: timezone
-      in: query
-      description: tz database identifier used for date bucketing (e.g. Europe/Helsinki).
-      schema:
-        type: string
   schemas:
     ReportResponse:
       type: object

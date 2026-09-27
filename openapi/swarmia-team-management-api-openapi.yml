@@ -56,30 +56,6 @@ paths:
           description: Validation error.
 components:
   schemas:
-    TeamMember:
-      type: object
-      required:
-      - name
-      - email
-      properties:
-        name:
-          type: string
-        email:
-          type: string
-          format: email
-        githubUsername:
-          type: string
-        country:
-          type: string
-    TeamsResponse:
-      type: object
-      required:
-      - teams
-      properties:
-        teams:
-          type: array
-          items:
-            $ref: '#/components/schemas/Team'
     Team:
       type: object
       required:
@@ -120,6 +96,30 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TeamMember'
+    TeamsResponse:
+      type: object
+      required:
+      - teams
+      properties:
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
+    TeamMember:
+      type: object
+      required:
+      - name
+      - email
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        githubUsername:
+          type: string
+        country:
+          type: string
   securitySchemes:
     bearerToken:
       type: http
