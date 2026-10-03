@@ -90,6 +90,12 @@ paths:
                 $ref: '#/components/schemas/ReportResponse'
 components:
   parameters:
+    Timeframe:
+      name: timeframe
+      in: query
+      description: Relative timeframe (e.g. last7days). Defaults to the last 7 days (UTC).
+      schema:
+        type: string
     StartDate:
       name: startDate
       in: query
@@ -105,12 +111,6 @@ components:
         type: integer
         minimum: 1
         maximum: 2
-    Timeframe:
-      name: timeframe
-      in: query
-      description: Relative timeframe (e.g. last7days). Defaults to the last 7 days (UTC).
-      schema:
-        type: string
     Timezone:
       name: timezone
       in: query

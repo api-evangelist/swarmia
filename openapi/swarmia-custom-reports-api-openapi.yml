@@ -52,6 +52,27 @@ paths:
               schema:
                 $ref: '#/components/schemas/ReportResponse'
 components:
+  parameters:
+    Timeframe:
+      name: timeframe
+      in: query
+      description: Relative timeframe (e.g. last7days). Defaults to the last 7 days (UTC).
+      schema:
+        type: string
+    EndDate:
+      name: endDate
+      in: query
+      description: End date in YYYY-MM-DD.
+      schema:
+        type: string
+        format: date
+    StartDate:
+      name: startDate
+      in: query
+      description: Start date in YYYY-MM-DD.
+      schema:
+        type: string
+        format: date
   schemas:
     ReportResponse:
       type: object
@@ -79,27 +100,6 @@ components:
           type:
           - string
           - 'null'
-  parameters:
-    Timeframe:
-      name: timeframe
-      in: query
-      description: Relative timeframe (e.g. last7days). Defaults to the last 7 days (UTC).
-      schema:
-        type: string
-    StartDate:
-      name: startDate
-      in: query
-      description: Start date in YYYY-MM-DD.
-      schema:
-        type: string
-        format: date
-    EndDate:
-      name: endDate
-      in: query
-      description: End date in YYYY-MM-DD.
-      schema:
-        type: string
-        format: date
   securitySchemes:
     bearerToken:
       type: http
