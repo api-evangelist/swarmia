@@ -90,16 +90,10 @@ paths:
                 $ref: '#/components/schemas/ReportResponse'
 components:
   parameters:
-    Timeframe:
-      name: timeframe
+    EndDate:
+      name: endDate
       in: query
-      description: Relative timeframe (e.g. last7days). Defaults to the last 7 days (UTC).
-      schema:
-        type: string
-    StartDate:
-      name: startDate
-      in: query
-      description: Start date in YYYY-MM-DD.
+      description: End date in YYYY-MM-DD.
       schema:
         type: string
         format: date
@@ -111,19 +105,25 @@ components:
         type: integer
         minimum: 1
         maximum: 2
+    StartDate:
+      name: startDate
+      in: query
+      description: Start date in YYYY-MM-DD.
+      schema:
+        type: string
+        format: date
     Timezone:
       name: timezone
       in: query
       description: tz database identifier used for date bucketing (e.g. Europe/Helsinki).
       schema:
         type: string
-    EndDate:
-      name: endDate
+    Timeframe:
+      name: timeframe
       in: query
-      description: End date in YYYY-MM-DD.
+      description: Relative timeframe (e.g. last7days). Defaults to the last 7 days (UTC).
       schema:
         type: string
-        format: date
   schemas:
     ReportResponse:
       type: object
