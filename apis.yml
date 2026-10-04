@@ -215,6 +215,9 @@ apis:
   - type: Documentation
     url: https://help.swarmia.com/getting-started/integrations/slack
 common:
+- type: CapabilityMap
+  url: capabilities/swarmia-capability-edges.yml
+  name: Swarmia Business Capability Map
 - type: AgenticAccess
   url: agentic-access/swarmia-agentic-access.yml
 - type: VulnerabilityDisclosure
