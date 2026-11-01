@@ -1,4 +1,4 @@
-# Swarmia (swarmia)
+# Swarmia
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,118 +66,127 @@
 
 Swarmia is an engineering-effectiveness analytics platform that combines software delivery metrics (DORA), developer experience, investment balance, and AI adoption insights. Its REST API lets teams export built-in and custom reports, ingest deployment and events data, manage teams and memberships, and record time off, authenticated with Bearer API tokens.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/swarmia/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/swarmia/refs/heads/main/apis.yml)
+**Areas:** Engineering Effectiveness · Developer Productivity · DORA · Software Delivery · Analytics
 
-## Tags
+## Swarmia on APIs.io
 
-- Engineering Effectiveness
-- Developer Productivity
-- DORA
-- Software Delivery
-- Analytics
+Everything profiled for Swarmia is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/swarmia/](https://apis.io/providers/swarmia/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (6)
 
-- **Created:** 2026-06-21
-- **Modified:** 2026-06-21
+- [Swarmia Additional AI integrations API](https://apis.io/apis/swarmia/swarmia-additional-ai-integrations-api/) — Ingestion of usage data from external AI assistant tools.
+- [Swarmia Built-in reports API](https://apis.io/apis/swarmia/swarmia-built-in-reports-api/) — Machine-readable versions of major reports found in the Swarmia app.
+- [Swarmia Custom reports API](https://apis.io/apis/swarmia/swarmia-custom-reports-api/) — Saved custom reports created in the Swarmia explore view.
+- [Swarmia Deployments API](https://apis.io/apis/swarmia/swarmia-deployments-api/) — Deployment and fix-deployment event ingestion for delivery and DORA metrics.
+- [Swarmia Team management API](https://apis.io/apis/swarmia/swarmia-team-management-api/) — Programmatic management of teams and memberships.
+- [Swarmia Time off API](https://apis.io/apis/swarmia/swarmia-time-off-api/) — Create, read, update, and delete employee time-off periods.
 
-## APIs
+### Published properties
 
-### Swarmia Metrics Export API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Machine-readable, built-in and custom reports - code metrics, DORA metrics, AI assistant adoption, and saved custom reports - retrieved as JSON or CSV using a Bearer API token with the entityQuery scope.
+#### Agentic access (1)
 
-- **Human URL:** [https://help.swarmia.com/settings/integrations/swarmia-apis](https://help.swarmia.com/settings/integrations/swarmia-apis)
-- **Base URL:** `https://app.swarmia.com/api/v1`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Swarmia Agentic Access](https://apis.io/agentic-access/swarmia/swarmia-agentic-access/)
 
-- Metrics
-- DORA
-- Reports
-- Export
+#### Collections (7)
 
-#### Properties
+Postman and Open Collection request collections.
 
-- [Documentation](https://help.swarmia.com/settings/integrations/swarmia-apis)
-- [API Reference](https://app.swarmia.com/api/v1/openapi.json)
-- [OpenAPI](openapi/swarmia-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/swarmia.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/swarmia.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Swarmia API](https://apis.io/collections/swarmia/open-swarmia/)
+- [Swarmia Additional AI integrations API](https://apis.io/collections/swarmia/open-swarmia-additional-ai-integrations-api/)
+- [Swarmia Additional AI integrations Built-in reports API](https://apis.io/collections/swarmia/open-swarmia-built-in-reports-api/)
+- [Swarmia Additional AI integrations Custom reports API](https://apis.io/collections/swarmia/open-swarmia-custom-reports-api/)
+- [Swarmia Additional AI integrations Deployments API](https://apis.io/collections/swarmia/open-swarmia-deployments-api/)
+- [Swarmia Additional AI integrations Team management API](https://apis.io/collections/swarmia/open-swarmia-team-management-api/)
+- [Swarmia Additional AI integrations Time off API](https://apis.io/collections/swarmia/open-swarmia-time-off-api/)
 
-### Swarmia Deployments & Events Ingestion API
+#### Security (3)
 
-Posts deployment and fix-deployment events to Swarmia (POST https://hook.swarmia.com/deployments) so delivery and DORA metrics reflect manual or CI/CD releases, plus daily AI-tool usage ingestion for external assistants.
+Authentication, trust centre, and vulnerability disclosure.
 
-- **Human URL:** [https://help.swarmia.com/settings/organization/configuring-deployments-in-swarmia/generate-deployments-via-the-deployment-api](https://help.swarmia.com/settings/organization/configuring-deployments-in-swarmia/generate-deployments-via-the-deployment-api)
-- **Base URL:** `https://hook.swarmia.com`
+- [Swarmia Authentication](https://apis.io/security/swarmia/swarmia-authentication/)
+- [Swarmia Domain Security](https://apis.io/security/swarmia/swarmia-domain-security/)
+- [Swarmia Vulnerability Disclosure](https://apis.io/security/swarmia/swarmia-vulnerability-disclosure/)
 
-#### Tags
+#### Plans and pricing (1)
 
-- Deployments
-- Events
-- Ingestion
-- DORA
+Published plans, tiers and prices.
 
-#### Properties
+- [Swarmia Plans Pricing](https://apis.io/plans/swarmia/swarmia-plans-pricing/)
 
-- [Documentation](https://help.swarmia.com/settings/organization/configuring-deployments-in-swarmia/generate-deployments-via-the-deployment-api)
-- [OpenAPI](openapi/swarmia-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/swarmia.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/swarmia.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Rate limits (1)
 
-### Swarmia Investment Categories API
+Published request limits.
 
-Legacy Export API v0 endpoints for investment balance, software capitalization (CapEx), effort (FTE) reporting, and team/member and time-off management, returning CSV for finance and engineering-investment workflows.
+- [Swarmia Rate Limits](https://apis.io/rate-limits/swarmia/swarmia-rate-limits/)
 
-- **Human URL:** [https://help.swarmia.com/settings/integrations/swarmia-apis/export-api](https://help.swarmia.com/settings/integrations/swarmia-apis/export-api)
-- **Base URL:** `https://app.swarmia.com/api/v0`
+#### FinOps (1)
 
-#### Tags
+What the API costs to run, by operation.
 
-- Investment Balance
-- Capitalization
-- Effort
-- Teams
+- [Swarmia Finops](https://apis.io/finops/swarmia/swarmia-finops/)
 
-#### Properties
+## Where to find this API
 
-- [Documentation](https://help.swarmia.com/settings/integrations/swarmia-apis/export-api)
-- [OpenAPI](openapi/swarmia-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/swarmia.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/swarmia.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-### Swarmia Webhooks & Notifications API
-
-Event-driven integration surface - Swarmia subscribes to GitHub webhooks (checks, Actions, deployments, issues, pull requests) and pushes working-agreement nudges, pull-request reminders, and daily digests to Slack and Microsoft Teams.
-
-- **Human URL:** [https://help.swarmia.com/resources/security-and-data-retention/data-access](https://help.swarmia.com/resources/security-and-data-retention/data-access)
-- **Base URL:** `https://app.swarmia.com/api/v1`
-
-#### Tags
-
-- Webhooks
-- Notifications
-- Slack
-- GitHub
-
-#### Properties
-
-- [Documentation](https://help.swarmia.com/resources/security-and-data-retention/data-access)
-- [Documentation](https://help.swarmia.com/getting-started/integrations/slack)
-- [OpenAPI](openapi/swarmia-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/swarmia)
-- [LinkedIn](https://www.linkedin.com/company/swarmia)
 - [Website](https://www.swarmia.com)
 - [Documentation](https://help.swarmia.com)
-- [Plans](plans/swarmia-plans-pricing.yml)
-- [Rate Limits](rate-limits/swarmia-rate-limits.yml)
-- [Fin Ops](finops/swarmia-finops.yml)
+- [Blog](https://www.swarmia.com/rss.xml)
+- [GitHub](https://github.com/swarmia)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 31.2** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 51.0 |
+| Contract governance | 0.0 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 32.1 |
+| Access clarity | 7.9 |
+
+**Agent readiness 17.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 17.6** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/swarmia/](https://apis.io/providers/swarmia/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Swarmia: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/swarmia/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
